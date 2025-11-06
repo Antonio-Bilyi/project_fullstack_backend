@@ -28,7 +28,7 @@ const usersSchema = new Schema(
     },
     favouriteArticles: {
       type: [Schema.Types.ObjectId],
-      ref: 'travellers',
+      ref: 'stories',
       default: [],
     },
   },
