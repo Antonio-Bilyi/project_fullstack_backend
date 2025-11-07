@@ -37,8 +37,8 @@ paths:
     #   $ref:
   # ендпоінти по роботі з історіями
   /stories:
-    # get:
-    #   $ref:
+    get:
+      $ref: ../swagger/paths/stories/get.yaml
   # ендпоінти по роботі з історіями за ID
   /stories/{id}:
     # post:
