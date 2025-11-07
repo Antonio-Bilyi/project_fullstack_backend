@@ -10,7 +10,7 @@ export const getCategoriesCntrl = async (req, res) => {
 
   res.status(200).json({
     status: 200,
-    message: "Successfull got categories",
+    message: "Successful got categories",
     data: categories,
   });
 };

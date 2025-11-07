@@ -6,9 +6,9 @@ import categoriesRouter from './categories.js';
 
 const router = Router();
 
-router.use('/users', usersRouter);
-router.use('/categories', categoriesRouter);
 router.use('/auth', authRouter);
+router.use('/users', usersRouter);
 router.use('/stories', storiesRouter);
+router.use('/categories', categoriesRouter);
 
 export default router;

@@ -16,9 +16,13 @@ export const getCurrentUserCntrl = async (req, res) => {
     throw createHttpError(404, 'User not found');
   }
 
-  res.status(200).json({
-    username: user.name,
-    avatar: user.avatarUrl,
-    email: user.email
+  res.json({
+    status: 200,
+    message: "Successful got current user",
+    data: {
+      username: user.name,
+      avatar: user.avatarUrl,
+      email: user.email
+    }
   });
 };
