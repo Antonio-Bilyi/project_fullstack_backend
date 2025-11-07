@@ -1,23 +1,24 @@
 import { getAllStories } from '../../services/stories/getAllStories.js';
 import parsePaginationParams from '../../utils/parsePaginationParams.js';
 import parseSortParams from '../../utils/parseSortParams.js';
+import parseFilterParams from '../../utils/parseFilterParams.js';
 
-export const getAllStoriesCntrl = async (req, res, next) => {
+export const getAllStoriesCntrl = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortOrder, sortBy } = parseSortParams(req.query);
-  const { category } = req.query;
+  const filter = parseFilterParams(req.query);
 
-  const result = await getAllStories({
+  const stories = await getAllStories({
     page,
     perPage,
     sortOrder,
     sortBy,
-    category,
+    filter,
   });
 
   res.status(200).json({
     status: 200,
     message: 'Stories fetched successfully',
-    data: result,
+    data: stories,
   });
 };

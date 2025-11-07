@@ -6,15 +6,15 @@ export const getAllStories = async ({
   perPage,
   sortOrder,
   sortBy,
-  category,
+  filter = {},
 }) => {
   const limit = perPage;
   const skip = page > 0 ? (page - 1) * perPage : 0;
 
   const storiesQuery = StoriesCollection.find();
 
-  if (category) {
-    storiesQuery.where('category').equals(category);
+  if (filter.category) {
+    storiesQuery.where('category').in(filter.category);
   }
 
   const totalStoriesCount = await StoriesCollection.find()
