@@ -19,6 +19,6 @@ export const getCurrentUserCntrl = async (req, res) => {
   res.status(200).json({
     username: user.name,
     avatar: user.avatarUrl,
-    description: user.description
+    email: user.email
   });
 };
