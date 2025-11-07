@@ -26,8 +26,8 @@ paths:
     #   $ref:
   # ендпоінти по роботі з користувачами
   /users:
-    # get:
-    #   $ref:
+    patch:
+      $ref: ../swagger/paths/users/patch.yaml
   # ендпоінти по роботі з користувачами за ID
   /users/{id}:
     # get:

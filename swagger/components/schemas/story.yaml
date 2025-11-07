@@ -13,13 +13,15 @@ properties:
     type: string
     description: Story title
   img:
-    type: string
+    type:
+      - string
+      - 'null'
     description: Image URL (optional)
-    nullable: true
   article:
-    type: string
+    type:
+      - string
+      - 'null'
     description: Story text/content
-    nullable: true
   category:
     type: object
     required:

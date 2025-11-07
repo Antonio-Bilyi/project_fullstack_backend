@@ -1,15 +1,21 @@
 import { loginUser } from '../../services/auth/loginUser.js';
-import { THIRTY_DAYS } from '../../constants/index.js';
+import { FIFTEEN_MINUTES, THIRTY_DAYS } from '../../constants/index.js';
 
 export const loginUserController = async (req, res) => {
   const session = await loginUser(req.body);
 
-    res.cookie('refreshToken', session.refreshToken, {
+  res.cookie('accessToken', session.accessToken, {
     httpOnly: true,
-    expires: new Date(Date.now() + THIRTY_DAYS),  });
+    expires: new Date(Date.now() + FIFTEEN_MINUTES),
+  });
+  res.cookie('refreshToken', session.refreshToken, {
+    httpOnly: true,
+    expires: new Date(Date.now() + THIRTY_DAYS),
+  });
   res.cookie('sessionId', session._id, {
     httpOnly: true,
-    expires: new Date(Date.now() + THIRTY_DAYS),  });
+    expires: new Date(Date.now() + THIRTY_DAYS),
+  });
 
   res.status(200).json({
     status: 200,

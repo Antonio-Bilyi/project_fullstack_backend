@@ -7,6 +7,7 @@ import notFoundHandler from './middlewares/notFoundHandler.js';
 import errorHandler from './middlewares/errorHandler.js';
 import router from './routers/index.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
+import parseCookies from './middlewares/parseCookies.js';
 
 const PORT = Number(getEnvVar('PORT') || 8080);
 
@@ -26,6 +27,7 @@ export default function setupServer() {
   });
 
   app.use(pinoHttp({ logger }));
+  app.use(parseCookies);
 
   app.use('/api', router);
 
