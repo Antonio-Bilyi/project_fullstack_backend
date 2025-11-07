@@ -1,15 +1,65 @@
 tags:
   - Stories
 summary: Get list of stories
-operationId:
-description: 'Get list of stories'
-security:
-  - bearerAuth: []
+operationId: getStories
+description: 'Get list of stories. Public endpoint. Supports pagination and filtering by category.'
+
 parameters:
-# your description here
+  - in: query
+    name: page
+    schema:
+      type: integer
+      default: 1
+    description: Page number
+  - in: query
+    name: perPage
+    schema:
+      type: integer
+      default: 10
+    description: Number of stories per page
+  - in: query
+    name: category
+    schema:
+      type: string
+    description: Filter stories by category name
+  - in: query
+    name: sortBy
+    schema:
+      type: string
+      default: createdAt
+    description: Field to sort by
+  - in: query
+    name: sortOrder
+    schema:
+      type: string
+      enum:
+        - asc
+        - desc
+      default: desc
+    description: Sort order
+
 responses:
   '200':
-  # your description here
+    description: List of stories with pagination
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '../../components/schemas/story.yaml'
+            totalItems:
+              type: integer
+            totalPages:
+              type: integer
+            currentPage:
+              type: integer
+            hasNextPage:
+              type: boolean
+            hasPrevPage:
+              type: boolean
   '400':
     $ref: '../../components/responses/400.yaml'
   '401':

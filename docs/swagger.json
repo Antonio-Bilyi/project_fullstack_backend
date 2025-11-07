@@ -36,41 +36,93 @@
     "/auth": null,
     "/users": null,
     "/users/{id}": null,
-    "/categories": {
+    "/categories": null,
+    "/stories": {
       "get": {
         "tags": [
-          "Categories"
+          "Stories"
         ],
-        "summary": "Get list of categories",
-        "operationId": "getCategories",
-        "description": "Get list of categories",
-        "security": [],
+        "summary": "Get list of stories",
+        "operationId": "getStories",
+        "description": "Get list of stories. Public endpoint. Supports pagination and filtering by category.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Number of stories per page"
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter stories by category name"
+          },
+          {
+            "in": "query",
+            "name": "sortBy",
+            "schema": {
+              "type": "string",
+              "default": "createdAt"
+            },
+            "description": "Field to sort by"
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            },
+            "description": "Sort order"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Successful got categories",
+            "description": "List of stories with pagination",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
                   "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successful got categories"
-                    },
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/category"
+                        "$ref": "#/components/schemas/story"
                       }
+                    },
+                    "totalItems": {
+                      "type": "integer"
+                    },
+                    "totalPages": {
+                      "type": "integer"
+                    },
+                    "currentPage": {
+                      "type": "integer"
+                    },
+                    "hasNextPage": {
+                      "type": "boolean"
+                    },
+                    "hasPrevPage": {
+                      "type": "boolean"
                     }
                   }
                 }
@@ -92,7 +144,6 @@
         }
       }
     },
-    "/stories": null,
     "/stories/{id}": null
   },
   "components": {
@@ -103,22 +154,73 @@
       }
     },
     "schemas": {
-      "category": {
+      "story": {
         "type": "object",
         "required": [
           "_id",
-          "name"
+          "title",
+          "category",
+          "ownerId",
+          "date"
         ],
         "properties": {
           "_id": {
             "type": "string",
-            "description": "Category unique identifier",
-            "example": "68fad270e7f1469dd713faef"
+            "description": "Story ID"
           },
-          "name": {
+          "title": {
             "type": "string",
-            "description": "Category name",
-            "example": "Adventure"
+            "description": "Story title"
+          },
+          "img": {
+            "type": "string",
+            "description": "Image URL (optional)",
+            "nullable": true
+          },
+          "article": {
+            "type": "string",
+            "description": "Story text/content",
+            "nullable": true
+          },
+          "category": {
+            "type": "object",
+            "required": [
+              "_id",
+              "name"
+            ],
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Category ID"
+              },
+              "name": {
+                "type": "string",
+                "description": "Category name"
+              }
+            }
+          },
+          "ownerId": {
+            "type": "string",
+            "description": "Author (user) ID"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Publication date"
+          },
+          "favoriteCount": {
+            "type": "integer",
+            "description": "Number of times added to favorites"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Document creation date"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update date"
           }
         }
       }
