@@ -1,5 +1,5 @@
 import getEnvVar from '../../utils/getEnvVars.js';
-import uploadToCloudinary from '../../utils/uploadToCloudinary.js';
+import { uploadToCloudinary } from '../../utils/uploadToCloudinary.js';
 import createHttpError from 'http-errors';
 import { updateStory } from '../../services/stories/updateStory.js';
 
@@ -24,7 +24,7 @@ export const patchStoriesController = async (req, res, next) => {
       ...req.body,
       photo: photoUrl,
     },
-    req.user._id,
+    // req.user._id,
   );
 
   if (!result) {

@@ -9,7 +9,7 @@ import { upload } from '../middlewares/upload.js';
 const router = Router();
 
 router.patch(
-  '/stories/:storyId',
+  '/:storyId',
   isValidId,
   upload.single('photo'),
   validateBody(updateStorySchema),

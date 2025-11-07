@@ -1,20 +1,17 @@
 import Joi from 'joi';
 
 export const updateStorySchema = Joi.object({
-  img: Joi.string(),
+  photo: Joi.string().optional(),
 
-  title: Joi.string().min(3).max(100),
+  title: Joi.string().min(3).max(100).optional(),
 
-  article: Joi.string().min(10),
+  article: Joi.string().min(10).optional(),
 
-  category: Joi.object({
-    $oid: Joi.string().length(24).hex(),
-  }),
-  ownerId: Joi.object({
-    $oid: Joi.string().length(24).hex(),
-  }),
+  category: Joi.string().length(24).hex().optional(),
 
-  date: Joi.date().iso().messages({}),
+  ownerId: Joi.string().length(24).hex().optional(),
 
-  favoriteCount: Joi.number().integer().min(0),
+  date: Joi.date().iso().messages({}).optional(),
+
+  favoriteCount: Joi.number().integer().min(0).optional().messages(),
 });
