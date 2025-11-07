@@ -11,10 +11,7 @@
   },
   "servers": [
     {
-      "url": null
-    },
-    {
-      "url": "http://localhost:8080"
+      "url": "http://localhost:8080/api"
     }
   ],
   "tags": [
@@ -29,6 +26,10 @@
     {
       "name": "Stories",
       "description": "Operations with stories"
+    },
+    {
+      "name": "Categories",
+      "description": "Operations with categories"
     }
   ],
   "paths": {
