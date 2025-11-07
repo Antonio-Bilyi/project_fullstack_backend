@@ -9,9 +9,11 @@ const storiesSchema = new Schema(
     img: {
       type: String,
       default: null,
+      required: true,
     },
     article: {
       type: String,
+      required: true,
     },
     category: {
       type: Schema.Types.ObjectId,
