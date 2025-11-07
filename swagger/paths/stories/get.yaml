@@ -1,0 +1,20 @@
+tags:
+  - Stories
+summary: Get list of stories
+operationId:
+description: 'Get list of stories'
+security:
+  - bearerAuth: []
+parameters:
+# your description here
+responses:
+  '200':
+  # your description here
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '404':
+    $ref: '../../components/responses/404all.yaml'
+  '500':
+    $ref: ../../components/responses/500.yaml
