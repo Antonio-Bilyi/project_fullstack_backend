@@ -1,7 +1,7 @@
 import createHttpError from "http-errors";
 
 export default function validateBody(schema) {
-    async (req, res, next) => {
+    return async (req, res, next) => {
         try {
             await schema.validateAsync(req.body, {
                 abortEarly: false,
@@ -12,7 +12,7 @@ export default function validateBody(schema) {
                 errors: err.details,
             });
             next(error);
-            
+
         }
     };
 };
