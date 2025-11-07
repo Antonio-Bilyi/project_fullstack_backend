@@ -1,0 +1,50 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Travellers APP",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "description": "This app is for sharing travel experiences"
+  },
+  "servers": [
+    {
+      "url": null
+    },
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Auth operations."
+    },
+    {
+      "name": "Users",
+      "description": "Operations with travelers (users)"
+    },
+    {
+      "name": "Stories",
+      "description": "Operations with stories"
+    }
+  ],
+  "paths": {
+    "/auth": null,
+    "/users": null,
+    "/users/{id}": null,
+    "/categories": null,
+    "/stories": null,
+    "/stories/{id}": null
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

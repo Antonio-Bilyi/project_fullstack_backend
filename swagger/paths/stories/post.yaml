@@ -1,0 +1,18 @@
+tags:
+  - Stories
+summary: Create story
+operationId:
+description: 'Create new story'
+security:
+  - bearerAuth: []
+requestBody:
+  # your description here
+responses:
+  '201':
+  #  your description here
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: ../../components/responses/500.yaml

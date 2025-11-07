@@ -1,0 +1,52 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Travellers APP
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: This app is for sharing travel experiences
+tags:
+  - name: Auth
+    description: Auth operations.
+  - name: Users
+    description: Operations with travelers (users)
+  - name: Stories
+    description: Operations with stories
+servers:
+  - url:
+  - url: http://localhost:8080
+paths:
+  # ендпоінти авторизації
+  /auth:
+    # post:
+    #   $ref:
+    # post:
+    #   $ref:
+  # ендпоінти по роботі з користувачами
+  /users:
+    # get:
+    #   $ref:
+  # ендпоінти по роботі з користувачами за ID
+  /users/{id}:
+    # get:
+    #   $ref:
+  # ендпоінти по роботі з категоріями
+  /categories:
+    # get:
+    #   $ref:
+  # ендпоінти по роботі з історіями
+  /stories:
+    # get:
+    #   $ref:
+  # ендпоінти по роботі з історіями за ID
+  /stories/{id}:
+    # post:
+    #   $ref:
+    # patch:
+    #   $ref:
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
