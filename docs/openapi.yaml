@@ -13,9 +13,10 @@ tags:
     description: Operations with travelers (users)
   - name: Stories
     description: Operations with stories
+  - name: Categories
+    description: Operations with categories
 servers:
-  - url:
-  - url: http://localhost:8080
+  - url: http://localhost:8080/api
 paths:
   # ендпоінти авторизації
   /auth:
@@ -33,12 +34,12 @@ paths:
     #   $ref:
   # ендпоінти по роботі з категоріями
   /categories:
-    # get:
-    #   $ref:
+    get:
+      $ref: ../swagger/paths/categories/get.yaml
   # ендпоінти по роботі з історіями
   /stories:
-    # get:
-    #   $ref:
+    get:
+      $ref: ../swagger/paths/stories/get.yaml
   # ендпоінти по роботі з історіями за ID
   /stories/{id}:
     # post:

@@ -1,0 +1,13 @@
+type: object
+required:
+  - _id
+  - name
+properties:
+  _id:
+    type: string
+    description: Category unique identifier
+    example: '68fad270e7f1469dd713faef'
+  name:
+    type: string
+    description: Category name
+    example: 'Adventure'

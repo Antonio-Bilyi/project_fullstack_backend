@@ -1,0 +1,52 @@
+type: object
+required:
+  - _id
+  - title
+  - category
+  - ownerId
+  - date
+properties:
+  _id:
+    type: string
+    description: Story ID
+  title:
+    type: string
+    description: Story title
+  img:
+    type: string
+    description: Image URL (optional)
+    nullable: true
+  article:
+    type: string
+    description: Story text/content
+    nullable: true
+  category:
+    type: object
+    required:
+      - _id
+      - name
+    properties:
+      _id:
+        type: string
+        description: Category ID
+      name:
+        type: string
+        description: Category name
+  ownerId:
+    type: string
+    description: Author (user) ID
+  date:
+    type: string
+    format: date-time
+    description: Publication date
+  favoriteCount:
+    type: integer
+    description: Number of times added to favorites
+  createdAt:
+    type: string
+    format: date-time
+    description: Document creation date
+  updatedAt:
+    type: string
+    format: date-time
+    description: Last update date
