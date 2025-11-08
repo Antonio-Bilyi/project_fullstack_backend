@@ -9,7 +9,9 @@ export const getCurrentUserCntrl = async (req, res) => {
     return;
   }
 
-  const user = await getCurrentUser(req.user._id);
+  const userId = req.user._id;
+
+  const user = await getCurrentUser(userId);
 
   if (!user) {
     res.status(404).json({
