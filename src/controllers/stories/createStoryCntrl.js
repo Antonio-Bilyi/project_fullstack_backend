@@ -22,7 +22,7 @@ export async function createStoryController(req, res) {
   const cleanStory = story.toObject();
   delete cleanStory.favoriteCount;
 
-  await UsersCollection.findByIdAndUpdate('6881563901add19ee16fcff5', {
+  await UsersCollection.findByIdAndUpdate(req.user.id, {
     $inc: { articleAmount: 1 },
   });
 
