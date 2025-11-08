@@ -1,16 +1,21 @@
-const parseCategory = (category) => {
-    const isString = typeof category === 'string';
-    if (!isString) return;
+import { CategoriesCollection } from "../db/models/categories.js";
 
-    const isCategory = (category) => ['Азія', 'Гори', 'Європа',
-        'Америка', 'Африка', 'Пустелі', 'Балкани', 'Кавказ', 'Океанія'].includes(category);
-    if (isCategory(category)) return category;
+const parseCategory = async (category) => {
+    if (typeof category !== 'string') return null;
+
+    if (category === "All") return null;
+
+    const foundCategory = await CategoriesCollection.findOne({ name: category });
+    if (!foundCategory) return null;
+
+    return foundCategory._id;
+
 };
 
-export default function parseFilterParams(query) {
+export default async function parseFilterParams(query) {
     const { category } = query;
 
-    const parsedCategory = parseCategory(category);
+    const categoryId = await parseCategory(category);
 
-    return { category: parsedCategory };
+    return categoryId ? { category: categoryId } : {};
 };
