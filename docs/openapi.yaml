@@ -32,7 +32,6 @@ paths:
     post:
       $ref: ../swagger/paths/auth/refresh.yaml
   # ендпоінти по роботі з користувачами
-
   /users/profile:
     patch:
       $ref: ../swagger/paths/users/updateProfile.yaml
@@ -42,7 +41,11 @@ paths:
   /users/current:
     get:
       $ref: ../swagger/paths/users/current/get.yaml
-
+    # get:
+    #   $ref:
+  /users/current:
+    get:
+      $ref: ../swagger/paths/users/current/get.yaml
   # ендпоінти по роботі з користувачами за ID
   # /users/{id}:
   # get:

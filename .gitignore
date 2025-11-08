@@ -9,3 +9,6 @@
 .idea
 
 pull-requests.txt
+
+# Generated documentation
+docs/swagger.json

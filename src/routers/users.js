@@ -8,13 +8,13 @@ import { updateUserProfileSchema } from '../validation/users.js';
 
 const usersRouter = Router();
 
-// усі ендпоінти приватні
+// застосовуємо authenticate до всіх ендпоінтів
 usersRouter.use(authenticate);
 
 // GET /api/users/current - отримати поточного користувача
 usersRouter.get('/current', ctrlWrapper(getCurrentUserCntrl));
 
-// PATCH /api/users/profile -оновити профіль поточного користувача
+// PATCH /api/users/profile - оновити профіль поточного користувача
 usersRouter.patch(
   '/profile',
   validateBody(updateUserProfileSchema),
