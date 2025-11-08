@@ -1,51 +1,53 @@
 tags:
-  - Contacts
-summary: Update contact by id
-operationId: updateContact
-description: 'Update contact by id'
+  - Story
+summary: Update story by id
+operationId: updateStoryById
+description: Update story by id
 security:
   - bearerAuth: []
+
 parameters:
   - in: path
     name: id
     required: true
     schema:
       type: string
-      example: '68fad270e7f1469dd713faef'
+      example: '68498236a100312bea079008'
+
 requestBody:
+  required: true
   content:
     multipart/form-data:
       schema:
         type: object
         properties:
-          name:
-            description: "Contact's name. Should have length between 3 and 20 symbols."
+          title:
+            description: 'Story title'
             type: string
-            example: 'Piter Pen'
-          phoneNumber:
-            description: "Contact's phoneNumber. Should be from 12 to 15 symbols."
+            maxLength: 80
+            example: 'Йорданія: шлях у Петру'
+          article:
+            description: 'Story article'
             type: string
-            example: '+380739003938'
-          email:
-            description: "Contact's email"
+            maxLength: 2500
+            example: 'Петра — одне з нових чудес світу...'
+          category:
+            description: 'Category ID'
             type: string
-            example: 'piter@ukr.net'
-          isFavourite:
-            description: 'Whether contact is favourite or no.'
-            type: boolean
-            example: true
-          contactType:
-            description: 'Type of contact'
-            type: string
-            example: 'personal'
-            enum: ['work', 'home', 'personal']
+            example: '68fb50c80ae91338641121f0'
           photo:
-            description: 'Contacts picture'
+            description: 'Uploaded image'
             type: string
             format: binary
+          favoriteCount:
+            description: 'Number of likes'
+            type: integer
+            minimum: 0
+            example: 4
+
 responses:
   '200':
-    description: 'Update contact by id'
+    description: 'Successfully updated story'
     content:
       application/json:
         schema:
@@ -60,15 +62,16 @@ responses:
               example: 200
             message:
               type: string
-              example: 'Successfully patched a contact!'
+              example: 'Successfully patched a story!'
             data:
               type: object
-              $ref: '../../../components/schemas/contact.yaml'
+              $ref: '../../../components/schemas/story.yaml'
+
   '400':
     $ref: '../../../components/responses/400.yaml'
   '401':
     $ref: '../../../components/responses/401.yaml'
   '404':
-    $ref: '../../../components/responses/404.yaml'
+    $ref: '../../../components/responses/404byId.yaml'
   '500':
     $ref: '../../../components/responses/500.yaml'

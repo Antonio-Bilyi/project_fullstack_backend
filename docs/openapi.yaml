@@ -33,15 +33,15 @@ paths:
       $ref: ../swagger/paths/auth/refresh.yaml
   # ендпоінти по роботі з користувачами
   # /users:
-    # get:
-    #   $ref:
+  # get:
+  #   $ref:
   /users/current:
     get:
       $ref: ../swagger/paths/users/current/get.yaml
   # ендпоінти по роботі з користувачами за ID
   # /users/{id}:
-    # get:
-    #   $ref:
+  # get:
+  #   $ref:
   # ендпоінти по роботі з категоріями
   /categories:
     get:
@@ -50,12 +50,12 @@ paths:
   /stories:
     get:
       $ref: ../swagger/paths/stories/get.yaml
-  # ендпоінти по роботі з історіями за ID
-  # /stories/{id}:
+    # ендпоінти по роботі з історіями за ID
+  /stories/{id}:
     # post:
     #   $ref:
-    # patch:
-    #   $ref:
+    patch:
+      $ref: ../swagger/paths/stories/{id}/patch.yaml
 components:
   securitySchemes:
     bearerAuth:
