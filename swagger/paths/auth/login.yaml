@@ -16,9 +16,13 @@ requestBody:
         properties:
           email:
             type: string
+            format: email
+            maxLength: 64
             example: user@gmail.com
           password:
             type: string
+            minLength: 8
+            maxLength: 128
             example: strongPassword5
 responses:
   '200':

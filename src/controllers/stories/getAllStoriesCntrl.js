@@ -6,14 +6,14 @@ import parseFilterParams from '../../utils/parseFilterParams.js';
 export const getAllStoriesCntrl = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortOrder, sortBy } = parseSortParams(req.query);
-  const filter = parseFilterParams(req.query);
+  const filter = await parseFilterParams(req.query);
 
   const stories = await getAllStories({
     page,
     perPage,
+    filter,
     sortOrder,
     sortBy,
-    filter,
   });
 
   res.status(200).json({
