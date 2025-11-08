@@ -1,5 +1,5 @@
 import { createStory } from '../../services/stories/createStory.js';
-import uploadToCloudinary from '../../utils/uploadToCloudinary.js';
+import { uploadToCloudinary } from '../../utils/uploadToCloudinary.js';
 import { UsersCollection } from '../../db/models/users.js';
 import * as fs from 'node:fs/promises';
 
