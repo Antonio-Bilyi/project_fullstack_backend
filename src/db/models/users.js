@@ -17,7 +17,7 @@ const usersSchema = new Schema(
     },
     avatarUrl: {
       type: String,
-      required: true,
+      required: false,
     },
     articlesAmount: {
       type: Number,
@@ -25,7 +25,7 @@ const usersSchema = new Schema(
     },
     description: {
       type: String,
-      required: true,
+      required: false,
     },
     favouriteArticles: {
       type: [Schema.Types.ObjectId],
