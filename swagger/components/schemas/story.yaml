@@ -15,11 +15,9 @@ properties:
   img:
     type: string
     description: Image URL (optional)
-    nullable: true
   article:
     type: string
     description: Story text/content
-    nullable: true
   category:
     type: object
     required:
