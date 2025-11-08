@@ -13,14 +13,16 @@ export const authenticate = async (req, res, next) => {
 
   if (!session) throw createHttpError.Unauthorized('Session not found');
 
-  if (session.accessTokenValidUntil < new Date())
+  const isAccessTokenExpired = new Date() > new Date(session.accessTokenValidUntil);
+  if (isAccessTokenExpired) {
     throw createHttpError.Unauthorized('Access token expired');
-
+  }
+  
   const user = await UsersCollection.findById(session.userId);
 
   if (!user) throw createHttpError.NotFound('User not found');
 
-  req.user = { id: user._id, name: user.name };
+  req.user = user;
 
   next();
 };

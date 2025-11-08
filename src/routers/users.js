@@ -2,15 +2,11 @@ import { Router } from 'express';
 import { getCurrentUserCntrl } from '../controllers/users/getCurrentUserCntrl.js';
 import ctrlWrapper from '../utils/ctrlWrapper.js';
 import { getAllUsersCntrl } from '../controllers/users/getAllUsersCntrl.js';
+import { authenticate } from '../middlewares/auth.js';
 
 const usersRouter = Router();
 
-// TODO: Add authenticate middleware when ready
-// import { authenticate } from '../middlewares/authenticate.js';
-// usersRouter.use(authenticate);
-
-// GET /api/users/current - retrieve current authenticated user information
-usersRouter.get('/current', ctrlWrapper(getCurrentUserCntrl));
+usersRouter.get('/current',authenticate,  ctrlWrapper(getCurrentUserCntrl));
 
 /**
  * Group public users routes

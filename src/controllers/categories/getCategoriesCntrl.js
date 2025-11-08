@@ -1,10 +1,10 @@
-import { categoriesCollection } from '../../db/models/categories.js';
+import { CategoriesCollection } from '../../db/models/categories.js';
 
 /**
  * Повертає перелік категорій історій, відсортований за назвою.
  */
 export const getCategoriesCntrl = async (req, res) => {
-  const categories = await categoriesCollection
+  const categories = await CategoriesCollection
     .find({}, null, { sort: { name: 1 } })
     .lean();
 

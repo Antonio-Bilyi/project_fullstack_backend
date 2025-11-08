@@ -19,17 +19,27 @@ servers:
   - url: http://localhost:8080/api
 paths:
   # ендпоінти авторизації
-  /auth:
-    # post:
-    #   $ref:
-    # post:
-    #   $ref:
+  /auth/register:
+    post:
+      $ref: ../swagger/paths/auth/register.yaml
+  /auth/login:
+    post:
+      $ref: ../swagger/paths/auth/login.yaml
+  /auth/logout:
+    post:
+      $ref: ../swagger/paths/auth/logout.yaml
+  /auth/refresh:
+    post:
+      $ref: ../swagger/paths/auth/refresh.yaml
   # ендпоінти по роботі з користувачами
-  /users:
+  # /users:
     # get:
     #   $ref:
+  /users/current:
+    get:
+      $ref: ../swagger/paths/users/current/get.yaml
   # ендпоінти по роботі з користувачами за ID
-  /users/{id}:
+  # /users/{id}:
     # get:
     #   $ref:
   # ендпоінти по роботі з категоріями
@@ -41,7 +51,7 @@ paths:
     get:
       $ref: ../swagger/paths/stories/get.yaml
   # ендпоінти по роботі з історіями за ID
-  /stories/{id}:
+  # /stories/{id}:
     # post:
     #   $ref:
     # patch:

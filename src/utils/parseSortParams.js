@@ -8,13 +8,16 @@ const parseSortOrder = (sortOrder) => {
 };
 
 const parseSortBy = (sortBy) => {
-    const keyOfStory = "favoriteCount";
+    const keyOfStory = [
+        'date',
+        'favoriteCount',
+    ];
 
     if (keyOfStory.includes(sortBy)) {
         return sortBy;
     }
 
-    return "favoriteCount";
+    return "date";
 };
 
 export default function parseSortParams(query) {
