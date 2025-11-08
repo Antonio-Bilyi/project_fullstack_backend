@@ -1,7 +1,7 @@
 tags:
   - Stories
 summary: Create story
-operationId:
+operationId: createStory
 description: 'Create new story'
 security:
   - cookieAuth: []
@@ -20,7 +20,7 @@ requestBody:
           title:
             type: string
             example: 'My first story'
-          description:
+          article:
             type: string
             example: 'This is the content of my story'
           category:
@@ -29,7 +29,7 @@ requestBody:
         required:
           - img
           - title
-          - description
+          - article
           - category
 responses:
   '201':
