@@ -3,7 +3,7 @@ import { logoutUser } from '../../services/auth/logoutUser.js';
 export const logoutUserController = async (req, res) => {
   if (req.cookies.sessionId) {
     await logoutUser(req.cookies.sessionId);  }
-
+  res.clearCookie('accessToken');
   res.clearCookie('sessionId');
   res.clearCookie('refreshToken');
 
