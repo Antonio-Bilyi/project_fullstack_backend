@@ -1,7 +1,6 @@
 import { getCurrentUser } from '../../services/users/getCurrentUser.js';
 
 export const getCurrentUserCntrl = async (req, res) => {
-<<<<<<< HEAD
   if (!req.user?._id) {
     res.status(401).json({
       status: 401,
@@ -9,9 +8,6 @@ export const getCurrentUserCntrl = async (req, res) => {
     });
     return;
   }
-=======
-  const userId = req.user.id;
->>>>>>> d9e830408d756847fa83e9a3fd3b4cc2a06aeb6a
 
   const userId = req.user._id;
 
