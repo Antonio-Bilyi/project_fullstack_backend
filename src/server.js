@@ -30,7 +30,7 @@ export default function setupServer() {
 
   app.use(pinoHttp({ logger }));
 
-  app.use('/api', router);
+  app.use(router);
 
   app.use(notFoundHandler);
 

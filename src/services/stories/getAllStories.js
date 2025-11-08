@@ -4,8 +4,6 @@ import calculatePaginationData from '../../utils/calculatePaginationData.js';
 export const getAllStories = async ({
   page,
   perPage,
-  sortOrder,
-  sortBy,
   filter = {},
 }) => {
   const limit = perPage;
@@ -21,12 +19,10 @@ export const getAllStories = async ({
     .merge(storiesQuery)
     .countDocuments();
 
-  const sortDirection = sortOrder === 'asc' ? 1 : -1;
 
   const stories = await storiesQuery
     .skip(skip)
     .limit(limit)
-    .sort({ [sortBy]: sortDirection })
     .exec();
 
   const paginationData = calculatePaginationData(
