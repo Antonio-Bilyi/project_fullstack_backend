@@ -33,10 +33,343 @@
     }
   ],
   "paths": {
-    "/auth": null,
-    "/users": null,
-    "/users/{id}": null,
-    "/categories": null,
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Register new user",
+        "operationId": "registerUser",
+        "description": "Register a new user account.",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password",
+                  "name"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "user@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "strongPassword5"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Ivanka Olshanska"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully registered a user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully registered a user!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "68f153057a84e60b2e094f14"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "user@gmail.com"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Mila Nazarchuk"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "409": {
+            "description": "Email already in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 409
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Email in use"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login user",
+        "operationId": "loginUser",
+        "description": "Login user with email and password",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "user@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "strongPassword5"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully logged in an user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully logged in an user!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "Q3PcFQXzhPmN/TniRSiL5Z7PAcPciAgRFPE8zy00"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Logout user",
+        "operationId": "logoutUser",
+        "description": "Logout user by clearing session",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully logged out"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Refresh session",
+        "operationId": "refreshUserSession",
+        "description": "Refresh the user session",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully refreshed session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully refreshed a session!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "Q3PcFQXzhPmN/TniRSiL5Z7PAcPciAgRFPE8zy00"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Get list of categories",
+        "operationId": "getCategories",
+        "description": "Get list of categories",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successful got categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successful got categories"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/category"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404all"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/stories": {
       "get": {
         "tags": [
@@ -143,86 +476,13 @@
           }
         }
       }
-    },
-    "/stories/{id}": null
+    }
   },
   "components": {
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer"
-      }
-    },
-    "schemas": {
-      "story": {
-        "type": "object",
-        "required": [
-          "_id",
-          "title",
-          "category",
-          "ownerId",
-          "date"
-        ],
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Story ID"
-          },
-          "title": {
-            "type": "string",
-            "description": "Story title"
-          },
-          "img": {
-            "type": "string",
-            "description": "Image URL (optional)",
-            "nullable": true
-          },
-          "article": {
-            "type": "string",
-            "description": "Story text/content",
-            "nullable": true
-          },
-          "category": {
-            "type": "object",
-            "required": [
-              "_id",
-              "name"
-            ],
-            "properties": {
-              "_id": {
-                "type": "string",
-                "description": "Category ID"
-              },
-              "name": {
-                "type": "string",
-                "description": "Category name"
-              }
-            }
-          },
-          "ownerId": {
-            "type": "string",
-            "description": "Author (user) ID"
-          },
-          "date": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Publication date"
-          },
-          "favoriteCount": {
-            "type": "integer",
-            "description": "Number of times added to favorites"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Document creation date"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Last update date"
-          }
-        }
       }
     },
     "responses": {
@@ -387,6 +647,97 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "category": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Category unique identifier",
+            "example": "68fad270e7f1469dd713faef"
+          },
+          "name": {
+            "type": "string",
+            "description": "Category name",
+            "example": "Adventure"
+          }
+        }
+      },
+      "story": {
+        "type": "object",
+        "required": [
+          "_id",
+          "title",
+          "category",
+          "ownerId",
+          "date"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Story ID"
+          },
+          "title": {
+            "type": "string",
+            "description": "Story title"
+          },
+          "img": {
+            "type": "string",
+            "description": "Image URL (optional)",
+            "nullable": true
+          },
+          "article": {
+            "type": "string",
+            "description": "Story text/content",
+            "nullable": true
+          },
+          "category": {
+            "type": "object",
+            "required": [
+              "_id",
+              "name"
+            ],
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Category ID"
+              },
+              "name": {
+                "type": "string",
+                "description": "Category name"
+              }
+            }
+          },
+          "ownerId": {
+            "type": "string",
+            "description": "Author (user) ID"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Publication date"
+          },
+          "favoriteCount": {
+            "type": "integer",
+            "description": "Number of times added to favorites"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Document creation date"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update date"
           }
         }
       }
