@@ -35,6 +35,9 @@ paths:
   # /users:
     # get:
     #   $ref:
+  /users/current:
+    get:
+      $ref: ../swagger/paths/users/current/get.yaml
   # ендпоінти по роботі з користувачами за ID
   # /users/{id}:
     # get:
