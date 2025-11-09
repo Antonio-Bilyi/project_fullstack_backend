@@ -15,9 +15,5 @@ export const updateUserAvatar = async (userId, avatarFile) => {
     { new: true },
   );
 
-  if (!updatedUser) {
-    throw createHttpError(404, 'User not found');
-  }
-
   return updatedUser;
 };
