@@ -7,6 +7,7 @@ import notFoundHandler from './middlewares/notFoundHandler.js';
 import errorHandler from './middlewares/errorHandler.js';
 import router from './routers/index.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
+import cookieParser from 'cookie-parser';
 
 const PORT = Number(getEnvVar('PORT') || 8080);
 
@@ -16,6 +17,8 @@ export default function setupServer() {
   app.use('/api-docs', swaggerDocs());
   app.use(express.json());
 
+  app.use(cookieParser());
+  
   app.use(cors());
 
   const logger = pino({
@@ -27,7 +30,7 @@ export default function setupServer() {
 
   app.use(pinoHttp({ logger }));
 
-  app.use('/api', router);
+  app.use(router);
 
   app.use(notFoundHandler);
 

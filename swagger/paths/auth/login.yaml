@@ -1,0 +1,84 @@
+tags:
+  - Auth
+summary: Login user
+operationId: loginUser
+description: Login user with email and password
+security: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            format: email
+            maxLength: 64
+            example: user@gmail.com
+          password:
+            type: string
+            minLength: 8
+            maxLength: 128
+            example: strongPassword5
+responses:
+  '200':
+    description: Successfully logged in an user and set authentication cookies
+    headers:
+      Set-Cookie:
+        description: >
+          HTTP-only cookie with session or refresh token.
+          Example: `Set-Cookie: sessionId=abc123; HttpOnly; Secure; SameSite=None`
+        schema:
+          type: string
+          example: sessionId=abc123; HttpOnly; Secure; SameSite=None
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [status, message, data]
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully logged in an user!
+            data:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  example: 672c24b6f5b2b9001ce1a8cd
+                name:
+                  type: string
+                  example:  Maria Ostapko
+                email:
+                  type: string
+                  example: user@gmail.com
+                avatarUrl:
+                  type: string
+                  example: https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg
+                description:
+                  type: string
+                  example: Your description
+                articlesAmount:
+                  type: integer
+                  example: 0
+                favouriteArticles:
+                  type: array
+                  items:
+                    type: string
+                    example: 672c25d5f5b2b9001ce1a8ce
+
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '404':
+    $ref: ../../components/responses/404all.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

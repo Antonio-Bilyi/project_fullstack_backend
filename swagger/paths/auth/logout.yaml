@@ -1,0 +1,22 @@
+tags:
+  - Auth
+summary: Logout user
+operationId: logoutUser
+description: Logout user by clearing session
+security: []
+responses:
+  '204':
+    description: Successfully logged out. All authentication cookies have been cleared.
+    headers:
+      Set-Cookie:
+        description: >
+          Cookies cleared by the server.
+          Example:
+          `Set-Cookie: sessionId=; Max-Age=0; HttpOnly; Secure; SameSite=None`
+        schema:
+          type: string
+          example: sessionId=; Max-Age=0; HttpOnly; Secure; SameSite=None
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

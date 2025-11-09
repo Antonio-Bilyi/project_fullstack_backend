@@ -13,20 +13,34 @@ tags:
     description: Operations with travelers (users)
   - name: Stories
     description: Operations with stories
+  - name: Categories
+    description: Operations with categories
 servers:
-  - url:
-  - url: http://localhost:8080
+  - url: http://localhost:8080/api
 paths:
   # ендпоінти авторизації
-  /auth:
-    # post:
-    #   $ref:
-    # post:
-    #   $ref:
+  /auth/register:
+    post:
+      $ref: ../swagger/paths/auth/register.yaml
+  /auth/login:
+    post:
+      $ref: ../swagger/paths/auth/login.yaml
+  /auth/logout:
+    post:
+      $ref: ../swagger/paths/auth/logout.yaml
+  /auth/refresh:
+    post:
+      $ref: ../swagger/paths/auth/refresh.yaml
   # ендпоінти по роботі з користувачами
-  /users:
-    # get:
-    #   $ref:
+  /users/profile:
+    patch:
+      $ref: ../swagger/paths/users/updateProfile.yaml
+  # /users:
+  # get:
+  #   $ref:
+  /users/current:
+    get:
+      $ref: ../swagger/paths/users/current/get.yaml
   # ендпоінти по роботі з користувачами за ID
   /users/{id}:
     # get:
@@ -36,18 +50,18 @@ paths:
       $ref: '../swagger/paths/users/{id}/patch.yaml'
   # ендпоінти по роботі з категоріями
   /categories:
-    # get:
-    #   $ref:
+    get:
+      $ref: ../swagger/paths/categories/get.yaml
   # ендпоінти по роботі з історіями
   /stories:
-    # get:
-    #   $ref:
-  # ендпоінти по роботі з історіями за ID
+    get:
+      $ref: ../swagger/paths/stories/get.yaml
+    # ендпоінти по роботі з історіями за ID
   /stories/{id}:
     # post:
     #   $ref:
-    # patch:
-    #   $ref:
+    patch:
+      $ref: ../swagger/paths/stories/{id}/patch.yaml
 components:
   securitySchemes:
     bearerAuth:

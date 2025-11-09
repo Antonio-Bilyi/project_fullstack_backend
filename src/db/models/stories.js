@@ -8,7 +8,6 @@ const storiesSchema = new Schema(
     },
     img: {
       type: String,
-      default: null,
       required: true,
     },
     article: {
