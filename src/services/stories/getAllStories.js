@@ -52,15 +52,15 @@ export const getAllStories = async ({
 
   const mongooseFilter = {};
 
-  // Додаємо фільтр по категорії, якщо існує
+
   if (filter.category) {
     mongooseFilter.category = filter.category;
   }
 
-  // Лічильник без зайвих find().merge()
+
   const totalStoriesCount = await StoriesCollection.countDocuments(mongooseFilter);
 
-  // Сам запит
+
   const stories = await StoriesCollection.find(mongooseFilter)
     .skip(skip)
     .limit(limit)
