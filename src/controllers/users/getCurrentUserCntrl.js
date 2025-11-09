@@ -11,9 +11,9 @@ export const getCurrentUserCntrl = async (req, res) => {
 
   const userId = req.user._id;
 
-  const user = await getCurrentUser(userId);
+  const currentUser = await getCurrentUser(userId);
 
-  if (!user) {
+  if (!currentUser) {
     res.status(404).json({
       status: 404,
       message: 'User not found',
@@ -24,12 +24,6 @@ export const getCurrentUserCntrl = async (req, res) => {
   res.json({
     status: 200,
     message: 'Successfully got current user',
-    data: {
-      id: String(user._id),
-      username: user.name,
-      avatar: user.avatarUrl,
-      email: user.email,
-      description: user.description,
-    },
+    data: currentUser,
   });
 };

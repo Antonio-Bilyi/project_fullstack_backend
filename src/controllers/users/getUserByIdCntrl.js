@@ -16,7 +16,7 @@ export default async function getUserByIdCntrl(req, res, next) {
 
     res.json({
     status: 200,
-    message: `"Successfully found contact with id ${userId}!"`,
+    message: `"Successfully found user ${userId} with stories!"`,
     data: user,
     });
 }; 
