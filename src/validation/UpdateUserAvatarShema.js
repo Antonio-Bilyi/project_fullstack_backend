@@ -2,9 +2,9 @@ import Joi from 'joi';
 
 export const UpdateUserAvatarSchema = Joi.object({
   avatar: Joi.object({
-    fieldname: Joi.string(),
-    originalname: Joi.string(),
-    encoding: Joi.string(),
+    fieldname: Joi.string().required(),
+    originalname: Joi.string().required(),
+    encoding: Joi.string().required(),
     mimetype: Joi.string()
       .valid('image/jpeg', 'image/png', 'image/gif')
       .required()
@@ -19,7 +19,8 @@ export const UpdateUserAvatarSchema = Joi.object({
         'number.max': 'File size must not exceed 500 kB',
         'any.required': 'Avatar file is required',
       }),
-    filename: Joi.string(),
-    path: Joi.string(),
-  }).required(),
+    filename: Joi.string().required(),
+    path: Joi.string().required(),
+  }).required()
+    .unknown(false),
 });
