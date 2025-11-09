@@ -8,40 +8,33 @@ import { upload } from '../middlewares/upload.js';
 import validateAvatar from '../middlewares/validateAvatar.js';
 import { UpdateUserAvatarSchema } from '../validation/UpdateUserAvatarShema.js';
 import { getAllUsersCntrl } from '../controllers/users/getAllUsersCntrl.js';
-// import { authenticate } from '../middlewares/auth.js';
+import { authenticate } from '../middlewares/auth.js';
 import validateBody from '../middlewares/validateBody.js';
 import { updateUserProfileSchema } from '../validation/users.js';
 import isValidUserId from '../middlewares/isValidUserId.js';
 
 const usersRouter = Router();
 
-// // застосовуємо authenticate до всіх ендпоінтів
-// usersRouter.use(authenticate);
+usersRouter.get('/', ctrlWrapper(getAllUsersCntrl));
 
-// GET /api/users/current - отримати поточного користувача
-usersRouter.get('/current', ctrlWrapper(getCurrentUserCntrl));
+usersRouter.get('/:userId', isValidUserId, ctrlWrapper(getUserByIdCntrl));
+
+usersRouter.get('/current', authenticate, ctrlWrapper(getCurrentUserCntrl));
 
 usersRouter.patch(
   '/avatar',
+  authenticate,
   upload.single('avatar'),
   validateAvatar(UpdateUserAvatarSchema),
   ctrlWrapper(UpdateUserAvatarCntrl),
 );
 
-// PATCH /api/users/profile - оновити профіль поточного користувача
 usersRouter.patch(
   '/profile',
+  authenticate,
   validateBody(updateUserProfileSchema),
   ctrlWrapper(updateUserProfileCntrl),
 );
-
-/**
- * Group public users routes
- */
-usersRouter.get('/:userId', isValidUserId, ctrlWrapper(getUserByIdCntrl));
-
-usersRouter.get('/', ctrlWrapper(getAllUsersCntrl));
-
 
 export default usersRouter;
 

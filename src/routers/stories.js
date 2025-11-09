@@ -12,9 +12,8 @@ import { upload } from '../middlewares/upload.js';
 
 const router = Router();
 
-router.use(authenticate);
-
 router.get('/', ctrlWrapper(getAllStoriesCntrl));
+
 router.post(
   '/',
   authenticate,
@@ -25,6 +24,7 @@ router.post(
 
 router.patch(
   '/:storyId',
+  authenticate,
   isValidStoryId,
   upload.single('photo'),
   validateBody(updateStorySchema),
