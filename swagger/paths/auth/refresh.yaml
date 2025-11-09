@@ -11,7 +11,7 @@ responses:
       application/json:
         schema:
           type: object
-          required: [status, message, data]
+          required: [status, message]
           properties:
             status:
               type: integer
@@ -19,12 +19,7 @@ responses:
             message:
               type: string
               example: Successfully refreshed a session!
-            data:
-              type: object
-              properties:
-                accessToken:
-                  type: string
-                  example: Q3PcFQXzhPmN/TniRSiL5Z7PAcPciAgRFPE8zy00
+
   '401':
     $ref: ../../components/responses/401.yaml
   '500':
