@@ -42,7 +42,7 @@ paths:
     get:
       $ref: ../swagger/paths/users/current/get.yaml
   # ендпоінти по роботі з користувачами за ID
-  /users/{id}:
+  # /users/{id}:
     # get:
     #   $ref:
   /users/{id}/avatar:
