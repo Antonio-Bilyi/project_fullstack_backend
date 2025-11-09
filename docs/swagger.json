@@ -199,7 +199,16 @@
         },
         "responses": {
           "200": {
-            "description": "Successfully logged in an user",
+            "description": "Successfully logged in an user and set authentication cookies",
+            "headers": {
+              "Set-Cookie": {
+                "description": "HTTP-only cookie with session or refresh token. Example: `Set-Cookie: sessionId=abc123; HttpOnly; Secure; SameSite=None`\n",
+                "schema": {
+                  "type": "string",
+                  "example": "sessionId=abc123; HttpOnly; Secure; SameSite=None"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -221,9 +230,36 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "accessToken": {
+                        "_id": {
                           "type": "string",
-                          "example": "Q3PcFQXzhPmN/TniRSiL5Z7PAcPciAgRFPE8zy00"
+                          "example": "672c24b6f5b2b9001ce1a8cd"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Maria Ostapko"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "user@gmail.com"
+                        },
+                        "avatarUrl": {
+                          "type": "string",
+                          "example": "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg"
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "Your description"
+                        },
+                        "articlesAmount": {
+                          "type": "integer",
+                          "example": 0
+                        },
+                        "favouriteArticles": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "672c25d5f5b2b9001ce1a8ce"
+                          }
                         }
                       }
                     }
@@ -237,6 +273,9 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404all"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -252,14 +291,19 @@
         "summary": "Logout user",
         "operationId": "logoutUser",
         "description": "Logout user by clearing session",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [],
         "responses": {
           "204": {
-            "description": "Successfully logged out"
+            "description": "Successfully logged out. All authentication cookies have been cleared.",
+            "headers": {
+              "Set-Cookie": {
+                "description": "Cookies cleared by the server. Example: `Set-Cookie: sessionId=; Max-Age=0; HttpOnly; Secure; SameSite=None`\n",
+                "schema": {
+                  "type": "string",
+                  "example": "sessionId=; Max-Age=0; HttpOnly; Secure; SameSite=None"
+                }
+              }
+            }
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -288,8 +332,7 @@
                   "type": "object",
                   "required": [
                     "status",
-                    "message",
-                    "data"
+                    "message"
                   ],
                   "properties": {
                     "status": {
@@ -299,15 +342,6 @@
                     "message": {
                       "type": "string",
                       "example": "Successfully refreshed a session!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "accessToken": {
-                          "type": "string",
-                          "example": "Q3PcFQXzhPmN/TniRSiL5Z7PAcPciAgRFPE8zy00"
-                        }
-                      }
                     }
                   }
                 }
@@ -319,6 +353,152 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/users/profile": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update current user profile",
+        "operationId": "updateUserProfile",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "minProperties": 1,
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 32,
+                    "example": "Ivanka Olshanska"
+                  },
+                  "avatarUrl": {
+                    "type": "string",
+                    "format": "uri",
+                    "example": "https://res.cloudinary.com/demo/image/upload/avatar.jpg"
+                  },
+                  "description": {
+                    "type": "string",
+                    "maxLength": 512,
+                    "example": "Traveler and storyteller"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Profile updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated user profile"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Ivanka Olshanska"
+                        },
+                        "avatarUrl": {
+                          "type": "string",
+                          "example": "https://res.cloudinary.com/demo/image/upload/avatar.jpg"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "user@gmail.com"
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "Traveler and storyteller"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid data"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 401
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
