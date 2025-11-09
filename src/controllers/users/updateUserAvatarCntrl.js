@@ -9,7 +9,7 @@ export const UpdateUserAvatarCntrl = async (req, res, next) => {
       throw createHttpError(400, 'Avatar file is required');
     }
 
-    const updatedUser = await updateUserAvatar(req.user.id, avatar);
+    const updatedUser = await updateUserAvatar(req.user._id, avatar);
 
     if (!updatedUser) {
       throw createHttpError(404, 'User not found');
