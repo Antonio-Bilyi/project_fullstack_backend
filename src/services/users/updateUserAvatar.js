@@ -1,5 +1,5 @@
 import { UsersCollection } from '../../db/models/users.js';
-import uploadToCloudinary from '../../utils/uploadToCloudinary.js';
+import { uploadToCloudinary } from '../../utils/uploadToCloudinary.js';
 import fs from 'node:fs/promises';
 
 export const updateUserAvatar = async (userId, avatarFile) => {
