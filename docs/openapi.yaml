@@ -31,6 +31,9 @@ paths:
   /users/{id}:
     # get:
     #   $ref:
+  /users/{id}/avatar:
+    patch:
+      $ref: '../swagger/paths/users/{id}/patch.yaml'
   # ендпоінти по роботі з категоріями
   /categories:
     # get:
