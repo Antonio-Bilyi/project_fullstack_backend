@@ -30,6 +30,10 @@ export default function setupServer() {
 
   app.use(pinoHttp({ logger }));
 
+  app.get('/', (req, res) => {
+    res.status(200).json({ message: 'Api is running' });
+  });
+
   app.use(router);
 
   app.use(notFoundHandler);
