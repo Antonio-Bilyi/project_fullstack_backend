@@ -17,9 +17,9 @@ const usersRouter = Router();
 
 usersRouter.get('/', ctrlWrapper(getAllUsersCntrl));
 
-usersRouter.get('/:userId', isValidUserId, ctrlWrapper(getUserByIdCntrl));
-
 usersRouter.get('/current', authenticate, ctrlWrapper(getCurrentUserCntrl));
+
+usersRouter.get('/:userId', isValidUserId, ctrlWrapper(getUserByIdCntrl));
 
 usersRouter.patch(
   '/avatar',

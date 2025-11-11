@@ -1,14 +1,6 @@
 import { getCurrentUser } from '../../services/users/getCurrentUser.js';
 
 export const getCurrentUserCntrl = async (req, res) => {
-  if (!req.user?._id) {
-    res.status(401).json({
-      status: 401,
-      message: 'Unauthorized',
-    });
-    return;
-  }
-
   const userId = req.user._id;
 
   const currentUser = await getCurrentUser(userId);
