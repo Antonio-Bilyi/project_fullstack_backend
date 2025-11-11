@@ -1,0 +1,263 @@
+tags:
+  - Users
+summary: Get list of all travelers
+operationId: getAllUsers
+description: |
+  ## Overview
+  Retrieves a paginated list of all registered travelers (users) in the application. This endpoint provides public access to user profiles for discovering and connecting with other travelers.
+
+  ## Pagination
+  The endpoint supports pagination to efficiently handle large datasets. Use the `page` and `perPage` query parameters to control the number of results returned.
+
+  ## Response Data
+  Returns a paginated collection of user profiles including display names, avatars, and basic information. Sensitive data like passwords are automatically excluded from the response.
+
+parameters:
+  - in: query
+    name: page
+    schema:
+      type: integer
+      minimum: 1
+      default: 1
+    description: |
+      The page number to retrieve. Pages start at 1.
+
+      **Example:** `page=2` retrieves the second page of results
+  - in: query
+    name: perPage
+    schema:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 10
+    description: |
+      Number of users to return per page.
+
+      **Range:** 1-100 users per page
+
+      **Default:** 10 users
+
+responses:
+  '200':
+    description: |
+      Successfully retrieved the list of users. Returns a paginated response with user data and pagination metadata.
+
+      **Note:** Sensitive fields (password, refresh tokens, etc.) are automatically excluded from all user objects.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              description: HTTP status code indicating successful retrieval
+              example: 200
+            message:
+              type: string
+              description: Human-readable success message
+              example: 'Successfully found users!'
+            data:
+              type: object
+              description: Paginated user data with metadata
+              required:
+                - data
+                - page
+                - perPage
+                - totalItems
+                - totalPages
+                - hasNextPage
+                - hasPreviousPage
+              properties:
+                data:
+                  type: array
+                  description: Array of user profile objects
+                  items:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: Unique user identifier (MongoDB ObjectId)
+                        example: '507f1f77bcf86cd799439011'
+                      username:
+                        type: string
+                        description: User's display name or full name
+                        minLength: 3
+                        maxLength: 32
+                        example: 'Jane Smith'
+                      email:
+                        type: string
+                        format: email
+                        description: User's registered email address
+                        example: 'jane.smith@example.com'
+                      avatar:
+                        type: string
+                        format: uri
+                        nullable: true
+                        description: Absolute URL to the user's avatar image. Null if no avatar uploaded.
+                        example: 'https://res.cloudinary.com/travellers/image/upload/v1234567890/avatars/user456.jpg'
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Timestamp when the user account was created
+                        example: '2025-01-15T10:30:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Timestamp of the last profile update
+                        example: '2025-01-20T14:45:00.000Z'
+                page:
+                  type: integer
+                  description: Current page number
+                  example: 1
+                perPage:
+                  type: integer
+                  description: Number of items per page
+                  example: 10
+                totalItems:
+                  type: integer
+                  description: Total number of users in the database
+                  example: 156
+                totalPages:
+                  type: integer
+                  description: Total number of pages available
+                  example: 16
+                hasNextPage:
+                  type: boolean
+                  description: Indicates if there is a next page available
+                  example: true
+                hasPreviousPage:
+                  type: boolean
+                  description: Indicates if there is a previous page available
+                  example: false
+        examples:
+          successful_response:
+            summary: Successful response with users
+            value:
+              status: 200
+              message: 'Successfully found users!'
+              data:
+                data:
+                  - _id: '507f1f77bcf86cd799439011'
+                    username: 'Jane Smith'
+                    email: 'jane.smith@example.com'
+                    avatar: 'https://res.cloudinary.com/travellers/image/upload/v1234567890/avatars/user456.jpg'
+                    createdAt: '2025-01-15T10:30:00.000Z'
+                    updatedAt: '2025-01-20T14:45:00.000Z'
+                  - _id: '507f1f77bcf86cd799439012'
+                    username: 'John Doe'
+                    email: 'john.doe@example.com'
+                    avatar: 'https://res.cloudinary.com/travellers/image/upload/v1234567890/avatars/user789.jpg'
+                    createdAt: '2025-01-10T08:15:00.000Z'
+                    updatedAt: '2025-01-18T12:20:00.000Z'
+                page: 1
+                perPage: 10
+                totalItems: 156
+                totalPages: 16
+                hasNextPage: true
+                hasPreviousPage: false
+  '400':
+    description: |
+      Bad request. Invalid query parameters provided (e.g., negative page number, invalid perPage value).
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: BadRequestError
+            data:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                  example: 'Invalid pagination parameters'
+        examples:
+          invalid_parameters:
+            summary: Invalid query parameters
+            value:
+              status: 400
+              message: BadRequestError
+              data:
+                message: 'Invalid pagination parameters'
+  '404':
+    description: |
+      No users found. This can occur when requesting a page number beyond the available data.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 404
+            message:
+              type: string
+              example: NotFoundError
+            data:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                  example: 'No users found'
+        examples:
+          no_users:
+            summary: No users found
+            value:
+              status: 404
+              message: NotFoundError
+              data:
+                message: 'No users found'
+  '500':
+    description: |
+      Internal server error. An unexpected error occurred while processing the request.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 500
+            message:
+              type: string
+              example: InternalServerError
+            data:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                  example: 'An unexpected error occurred'
+        examples:
+          server_error:
+            summary: Internal server error
+            value:
+              status: 500
+              message: InternalServerError
+              data:
+                message: 'An unexpected error occurred'

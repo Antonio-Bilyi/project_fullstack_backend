@@ -35,9 +35,9 @@ paths:
   /users/profile:
     patch:
       $ref: ../swagger/paths/users/updateProfile.yaml
-  # /users:
-  # get:
-  #   $ref:
+  /users:
+    get:
+      $ref: ../swagger/paths/users/get.yaml
   /users/current:
     get:
       $ref: ../swagger/paths/users/current/get.yaml
