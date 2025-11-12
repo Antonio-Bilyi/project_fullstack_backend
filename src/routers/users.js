@@ -14,6 +14,7 @@ import { updateUserProfileSchema } from '../validation/users.js';
 import isValidUserId from '../middlewares/isValidUserId.js';
 import { addStoryToDownloadCntrl } from '../controllers/users/addStoryToDownloadCntrl.js';
 import { addDelStoryToDownloadsSchema } from '../validation/addDelStoryToDownloads.js';
+import { removeStoryFromDownloadCntrl } from '../controllers/users/removeStoryFromDownloadCntrl.js';
 
 const usersRouter = Router();
 
@@ -41,10 +42,15 @@ usersRouter.patch(
 usersRouter.patch(
   '/addStoryToSave',
   authenticate,
-  // isValidUserId,
-  // isValidStoryId,
   validateBody(addDelStoryToDownloadsSchema),
   ctrlWrapper(addStoryToDownloadCntrl),
+);
+
+usersRouter.patch(
+  '/removeStoryFromSave',
+  authenticate,
+  validateBody(addDelStoryToDownloadsSchema),
+  ctrlWrapper(removeStoryFromDownloadCntrl),
 );
 
 export default usersRouter;

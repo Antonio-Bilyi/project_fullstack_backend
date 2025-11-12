@@ -3,19 +3,21 @@ import { StoriesCollection } from '../../db/models/stories.js';
 
 export const addStoryToDownloads = async (
   userId,
-  favouriteArticles,
+  //   favouriteArticles,
   storyId,
   direction,
 ) => {
-  const dataUpd = {
-    favouriteArticles,
-  };
+  //   const dataUpd = {
+  //     favouriteArticles,
+  //   };
   // Оновлюємо дані користувача
   const updUserResult = await UsersCollection.findOneAndUpdate(
     { _id: userId },
-    dataUpd,
+    { $addToSet: { favouriteArticles: storyId } },
     {
       new: true,
+      runValidators: true,
+      context: 'query',
       includeResultMetadata: true,
     },
   );

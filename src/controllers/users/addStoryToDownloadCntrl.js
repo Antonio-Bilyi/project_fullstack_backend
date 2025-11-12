@@ -20,11 +20,11 @@ export const addStoryToDownloadCntrl = async (req, res) => {
     throw createHttpError(400, 'Such story already in downloads');
   }
 
-  user.favouriteArticles.push(req.body.storyId);
+  // user.favouriteArticles.push(req.body.storyId);
 
   const data = await addStoryToDownloads(
     userId,
-    user.favouriteArticles,
+    // user.favouriteArticles,
     story._id,
     1,
   );

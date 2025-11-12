@@ -43,7 +43,7 @@ export default function setupServer() {
     res.status(200).json({ message: 'Api is running' });
   });
 
-  app.use(router);
+  app.use('/api', router);
 
   app.use(notFoundHandler);
 
