@@ -12,6 +12,8 @@ import { authenticate } from '../middlewares/auth.js';
 import validateBody from '../middlewares/validateBody.js';
 import { updateUserProfileSchema } from '../validation/users.js';
 import isValidUserId from '../middlewares/isValidUserId.js';
+import { addStoryToDownloadCntrl } from '../controllers/users/addStoryToDownloadCntrl.js';
+import { addDelStoryToDownloadsSchema } from '../validation/addDelStoryToDownloads.js';
 
 const usersRouter = Router();
 
@@ -36,5 +38,13 @@ usersRouter.patch(
   ctrlWrapper(updateUserProfileCntrl),
 );
 
-export default usersRouter;
+usersRouter.patch(
+  '/addStoryToSave',
+  authenticate,
+  // isValidUserId,
+  // isValidStoryId,
+  validateBody(addDelStoryToDownloadsSchema),
+  ctrlWrapper(addStoryToDownloadCntrl),
+);
 
+export default usersRouter;
