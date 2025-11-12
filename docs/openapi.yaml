@@ -16,6 +16,7 @@ tags:
   - name: Categories
     description: Operations with categories
 servers:
+  - url: https://project-fullstack-backend.onrender.com/api
   - url: http://localhost:8080/api
 paths:
   # ендпоінти авторизації
@@ -43,8 +44,8 @@ paths:
       $ref: ../swagger/paths/users/current/get.yaml
   # ендпоінти по роботі з користувачами за ID
   # /users/{id}:
-    # get:
-    #   $ref:
+  # get:
+  #   $ref:
   /users/{id}/avatar:
     patch:
       $ref: '../swagger/paths/users/{id}/patch.yaml'
