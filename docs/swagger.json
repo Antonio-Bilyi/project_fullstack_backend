@@ -1284,7 +1284,7 @@
     "/stories/{id}": {
       "patch": {
         "tags": [
-          "Story"
+          "Stories"
         ],
         "summary": "Update story by id",
         "operationId": "updateStoryById",
