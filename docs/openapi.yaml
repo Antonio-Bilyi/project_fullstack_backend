@@ -46,9 +46,9 @@ paths:
   # /users/{id}:
   # get:
   #   $ref:
-  /users/{id}/avatar:
+  /users/avatar:
     patch:
-      $ref: '../swagger/paths/users/{id}/patch.yaml'
+      $ref: '../swagger/paths/users/updateAvatar.yaml'
   # ендпоінти по роботі з категоріями
   /categories:
     get:

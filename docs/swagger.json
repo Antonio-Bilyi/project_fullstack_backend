@@ -1026,7 +1026,7 @@
         }
       }
     },
-    "/users/{id}/avatar": {
+    "/users/avatar": {
       "patch": {
         "tags": [
           "Users"
