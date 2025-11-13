@@ -16,14 +16,19 @@ requestBody:
             type: string
             minLength: 3
             maxLength: 32
+            pattern: '^[a-zA-Zа-яА-ЯіІїЇєЄґҐ\s''-]+$'
+            description: 'User name (letters, spaces, hyphens and apostrophes only, will be trimmed)'
             example: 'Ivanka Olshanska'
           avatarUrl:
             type: string
             format: uri
+            description: 'Valid URL for user avatar (will be trimmed)'
             example: 'https://res.cloudinary.com/demo/image/upload/avatar.jpg'
           description:
             type: string
             maxLength: 512
+            pattern: '^[^<>]*$'
+            description: 'User description (HTML tags not allowed, will be trimmed)'
             example: 'Traveler and storyteller'
 responses:
   '200':
@@ -55,7 +60,7 @@ responses:
                   type: string
                   example: 'Traveler and storyteller'
   '400':
-    description: Bad request
+    description: Bad request (validation failed)
     content:
       application/json:
         schema:
@@ -66,7 +71,23 @@ responses:
               example: 400
             message:
               type: string
-              example: Invalid data
+              example: 'Bad Request'
+            errors:
+              type: array
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  path:
+                    type: array
+                    items:
+                      type: string
+              example:
+                - message: 'Name can only contain letters, spaces, hyphens and apostrophes'
+                  path: ['name']
+                - message: 'Description cannot contain HTML tags'
+                  path: ['description']
   '401':
     description: Unauthorized
     content:

@@ -7,7 +7,13 @@ export const updateUserProfile = async (userId, payload) => {
 
   for (const field of allowedFields) {
     if (Object.prototype.hasOwnProperty.call(payload, field)) {
-      update[field] = payload[field];
+      const value = typeof payload[field] === 'string' 
+        ? payload[field].trim() 
+        : payload[field];
+      
+      if (value !== '' && value !== null && value !== undefined) {
+        update[field] = value;
+      }
     }
   }
 
@@ -18,7 +24,7 @@ export const updateUserProfile = async (userId, payload) => {
   const updatedUser = await UsersCollection.findByIdAndUpdate(
     userId,
     { $set: update },
-    { new: true },
+    { new: true, runValidators: true },
   );
 
   if (!updatedUser) {
