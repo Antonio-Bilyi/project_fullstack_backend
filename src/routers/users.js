@@ -39,14 +39,14 @@ usersRouter.patch(
   ctrlWrapper(updateUserProfileCntrl),
 );
 
-usersRouter.patch(
+usersRouter.post(
   '/addStoryToSave',
   authenticate,
   validateBody(addDelStoryToDownloadsSchema),
   ctrlWrapper(addStoryToDownloadCntrl),
 );
 
-usersRouter.patch(
+usersRouter.delete(
   '/removeStoryFromSave',
   authenticate,
   validateBody(addDelStoryToDownloadsSchema),
