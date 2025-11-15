@@ -33,9 +33,6 @@ paths:
     post:
       $ref: ../swagger/paths/auth/refresh.yaml
   # ендпоінти по роботі з користувачами
-  /users/profile:
-    patch:
-      $ref: ../swagger/paths/users/updateProfile.yaml
   /users:
     get:
       $ref: ../swagger/paths/users/get.yaml
@@ -49,6 +46,9 @@ paths:
   /users/avatar:
     patch:
       $ref: '../swagger/paths/users/updateAvatar.yaml'
+  /users/profile:
+    patch:
+      $ref: ../swagger/paths/users/updateProfile.yaml
   # ендпоінти по роботі з категоріями
   /categories:
     get:

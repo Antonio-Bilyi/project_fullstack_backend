@@ -2,8 +2,11 @@ tags:
   - Users
 summary: Update current user profile
 operationId: updateUserProfile
+description: >
+  Updates the profile of the authenticated user.
+  Authentication is performed using an access token stored in cookies.
 security:
-  - bearerAuth: []
+  - cookieAuth: []
 requestBody:
   required: true
   content:
