@@ -1,4 +1,3 @@
-import getEnvVar from '../../utils/getEnvVars.js';
 import { uploadToCloudinary } from '../../utils/uploadToCloudinary.js';
 import createHttpError from 'http-errors';
 import { updateStory } from '../../services/stories/updateStory.js';
@@ -11,12 +10,13 @@ export const patchStoriesController = async (req, res, next) => {
   let photoUrl;
 
   if (photo) {
-    if (getEnvVar('UPLOAD_CLOUDINARY') === 'true') {
-      photoUrl = await uploadToCloudinary(photo);
-    } else {
-      photoUrl = await uploadToCloudinary(photo);
-    }
+    photoUrl = await uploadToCloudinary(photo);
   }
+
+  console.log('PATCH storyId:', storyId);
+  console.log('PATCH userId:', req.user._id);
+  console.log('PATCH body:', req.body);
+  console.log('PATCH photoUrl:', photoUrl);
 
   const result = await updateStory(
     storyId,

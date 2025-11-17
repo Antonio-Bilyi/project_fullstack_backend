@@ -1,15 +1,16 @@
 import { createStory } from '../../services/stories/createStory.js';
 import { uploadToCloudinary } from '../../utils/uploadToCloudinary.js';
 import { UsersCollection } from '../../db/models/users.js';
-import * as fs from 'node:fs/promises';
 
 export async function createStoryController(req, res) {
+  console.log('BODY:', req.body);
+  console.log('FILE:', req.file);
+
   let img;
 
   if (req.file) {
-    const response = await uploadToCloudinary(req.file.path);
-    await fs.unlink(req.file.path);
-    img = response.secure_url;
+    const secureUrl = await uploadToCloudinary(req.file);
+    img = secureUrl;
   }
 
   const story = await createStory({
