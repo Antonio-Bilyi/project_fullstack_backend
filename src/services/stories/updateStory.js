@@ -4,7 +4,7 @@ export const updateStory = async (storyId, payload, userId, options = {}) => {
   const result = await StoriesCollection.findOneAndUpdate(
     {
       _id: storyId,
-      userId,
+      ownerId: userId,
     },
     payload,
     {
