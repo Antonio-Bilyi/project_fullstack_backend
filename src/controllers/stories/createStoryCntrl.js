@@ -3,9 +3,6 @@ import { uploadToCloudinary } from '../../utils/uploadToCloudinary.js';
 import { UsersCollection } from '../../db/models/users.js';
 
 export async function createStoryController(req, res) {
-  console.log('BODY:', req.body);
-  console.log('FILE:', req.file);
-
   let img;
 
   if (req.file) {
