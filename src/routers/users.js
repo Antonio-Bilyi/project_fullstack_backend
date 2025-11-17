@@ -15,12 +15,21 @@ import isValidUserId from '../middlewares/isValidUserId.js';
 import { addStoryToDownloadCntrl } from '../controllers/users/addStoryToDownloadCntrl.js';
 import { addDelStoryToDownloadsSchema } from '../validation/addDelStoryToDownloads.js';
 import { removeStoryFromDownloadCntrl } from '../controllers/users/removeStoryFromDownloadCntrl.js';
+import getMeByIdCntrl from '../controllers/users/getMeByIdCntrl.js';
 
 const usersRouter = Router();
 
 usersRouter.get('/', ctrlWrapper(getAllUsersCntrl));
 
 usersRouter.get('/current', authenticate, ctrlWrapper(getCurrentUserCntrl));
+
+// приватний маршрут для отримання профайлу користувача та історій збережених або власних
+usersRouter.get(
+  '/Me/:userId',
+  authenticate,
+  isValidUserId,
+  ctrlWrapper(getMeByIdCntrl),
+);
 
 usersRouter.get('/:userId', isValidUserId, ctrlWrapper(getUserByIdCntrl));
 
