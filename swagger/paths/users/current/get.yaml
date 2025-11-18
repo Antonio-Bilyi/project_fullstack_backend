@@ -12,7 +12,7 @@ description: |
   ## Response Data
   Returns essential user profile information including display name, avatar URL, and email address.
 security:
-  - bearerAuth: []
+  - cookieAuth: []
 responses:
   '200':
     description: |

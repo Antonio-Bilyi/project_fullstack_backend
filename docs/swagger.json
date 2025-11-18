@@ -296,7 +296,7 @@
         "description": "Logout user by clearing session",
         "security": [
           {
-            "bearerAuth": []
+            "cookieAuth": []
           }
         ],
         "responses": {
@@ -331,7 +331,7 @@
         "description": "Refresh the user session",
         "security": [
           {
-            "bearerAuth": []
+            "cookieAuth": []
           }
         ],
         "responses": {
@@ -713,7 +713,7 @@
         "description": "## Overview\nRetrieves the profile information of the currently authenticated user based on the session access token stored in HTTP-only cookies.\n\n## Authentication\nThis endpoint requires a valid session established through the authentication flow. The access token must be present in the request cookies and associated with an active, non-expired session in the system.\n\n## Response Data\nReturns essential user profile information including display name, avatar URL, and email address.\n",
         "security": [
           {
-            "bearerAuth": []
+            "cookieAuth": []
           }
         ],
         "responses": {
@@ -898,7 +898,7 @@
         "description": "Updates the avatar of the authenticated user.   The avatar must be an image file (JPG, PNG, or GIF) with a maximum size of 500 kB.   Authentication is performed using an access token stored in cookies.\n",
         "security": [
           {
-            "bearerAuth": []
+            "cookieAuth": []
           }
         ],
         "requestBody": {
@@ -989,7 +989,7 @@
         "operationId": "updateUserProfile",
         "security": [
           {
-            "bearerAuth": []
+            "cookieAuth": []
           }
         ],
         "requestBody": {
@@ -1136,21 +1136,29 @@
         "description": "## Overview\nAdd story to favoriteArticles of current user. Only for authorized user.\n\n## Authentication\nThis endpoint is private. \n\n## Response Data\nReturns information about traveller and updated information about story.\n",
         "security": [
           {
-            "bearerAuth": []
+            "cookieAuth": []
           }
         ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "storyId",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "68498236a100312bea079039"
-            },
-            "description": "Story ID which will be remove."
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "storyId"
+                ],
+                "properties": {
+                  "storyId": {
+                    "type": "string",
+                    "example": "68498236a100312bea07901c",
+                    "description": "Story ID"
+                  }
+                }
+              }
+            }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "Story successfully added to downloads!",
@@ -1219,21 +1227,29 @@
         "description": "## Overview\nRemove story from favoriteArticles of current user. Only for authorized user.\n\n## Authentication\nThis endpoint is private. \n\n## Response Data\nReturns information about traveller and updated information about story.\n",
         "security": [
           {
-            "bearerAuth": []
+            "cookieAuth": []
           }
         ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "storyId",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "68498236a100312bea079039"
-            },
-            "description": "Story ID which will be remove."
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "storyId"
+                ],
+                "properties": {
+                  "storyId": {
+                    "type": "string",
+                    "example": "68498236a100312bea07901c",
+                    "description": "Story ID"
+                  }
+                }
+              }
+            }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "Story successfully removed from downloads!",
@@ -1302,7 +1318,7 @@
         "description": "## Overview\nRetrieves the information about the traveller and his stories. It can be own public stoies or saved stories of other users.\n\n## Authentication\nThis endpoint is private. You can get only information about you.\n\n## Response Data\nReturns information about traveller and his stories with pagination data. List of stories can be empty if traveller hasn't write stories yet or hasn't saved stories.\n",
         "security": [
           {
-            "bearerAuth": []
+            "cookieAuth": []
           }
         ],
         "parameters": [
@@ -1753,7 +1769,7 @@
         "description": "Create new story",
         "security": [
           {
-            "bearerAuth": []
+            "cookieAuth": []
           }
         ],
         "requestBody": {
@@ -1900,7 +1916,7 @@
         "description": "Update story by id",
         "security": [
           {
-            "bearerAuth": []
+            "cookieAuth": []
           }
         ],
         "parameters": [
@@ -2002,9 +2018,11 @@
   },
   "components": {
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "accessToken",
+        "description": "Cookie containing the user's access token"
       }
     },
     "responses": {

@@ -76,7 +76,13 @@ paths:
     patch:
       $ref: ../swagger/paths/stories/{id}/patch.yaml
 components:
+  # securitySchemes:
+  #   bearerAuth:
+  #     type: http
+  #     scheme: bearer
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: accessToken
+      description: Cookie containing the user's access token

@@ -12,7 +12,7 @@ description: |
   ## Response Data
   Returns information about traveller and his stories with pagination data. List of stories can be empty if traveller hasn't write stories yet or hasn't saved stories.
 security:
-  - bearerAuth: []
+  - cookieAuth: []
 parameters:
   - in: path
     name: id
