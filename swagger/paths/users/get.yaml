@@ -11,7 +11,7 @@ description: |
 
   ## Response Data
   Returns a paginated collection of user profiles including display names, avatars, and basic information. Sensitive data like passwords are automatically excluded from the response.
-
+security: []
 parameters:
   - in: query
     name: page
@@ -96,7 +96,7 @@ responses:
                       avatar:
                         type: string
                         format: uri
-                        nullable: true
+                        # nullable: true
                         description: Absolute URL to the user's avatar image. Null if no avatar uploaded.
                         example: 'https://res.cloudinary.com/travellers/image/upload/v1234567890/avatars/user456.jpg'
                       createdAt:

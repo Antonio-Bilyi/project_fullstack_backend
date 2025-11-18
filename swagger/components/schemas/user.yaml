@@ -1,0 +1,44 @@
+type: object
+required:
+  - _id
+  - name
+  - avatarUrl
+properties:
+  _id:
+    type: string
+    description: User ID
+    example: '68fad270e7f1469dd713faef'
+  email:
+    type: string
+    description: User email
+    example: '68fad270e7f1469dd713faef'
+  name:
+    type: string
+    description: Owner Name
+    example: 'Назар Романенко'
+  avatarUrl:
+    type: string
+    description: Avatar URL
+    example: 'https://ftp.goit.study/img/harmoniq/users/6881563901add19ee16fd010.webp'
+  articlesAmount:
+    type: integer
+    description: Count of user own stories
+    example: 2
+  description:
+    type: string
+    description: About user.
+    example: Я Назар. Світ на смак – мій девіз!
+  favouriteArticles:
+    type: array
+    items:
+      type: string
+    description: About user.
+    example: ['68498236a100312bea079011', '68498236a100312bea07901f']
+  createdAt:
+    type: string
+    format: date-time
+    description: Document creation date
+  updatedAt:
+    type: string
+    format: date-time
+    description: Last update date

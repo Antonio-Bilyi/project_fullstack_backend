@@ -8,7 +8,7 @@ info:
   description: This app is for sharing travel experiences
 tags:
   - name: Auth
-    description: Auth operations.
+    description: Authorithation operations.
   - name: Users
     description: Operations with travelers (users)
   - name: Stories
@@ -45,10 +45,20 @@ paths:
   /users/profile:
     patch:
       $ref: ../swagger/paths/users/updateProfile.yaml
+  /users/addStoryToSave:
+    post:
+      $ref: '../swagger/paths/users/addStoryToSave/post.yaml'
+  /users/removeStoryFromSave:
+    delete:
+      $ref: '../swagger/paths/users/removeStoryFromSave/delete.yaml'
+
   # ендпоінти по роботі з користувачами за ID
-  # /users/{id}:
-  # get:
-  #   $ref:
+  /users/Me/{id}:
+    get:
+      $ref: '../swagger/paths/users/Me/{id}/get.yaml'
+  /users/{id}:
+    get:
+      $ref: '../swagger/paths/users/{id}/get.yaml'
   # ендпоінти по роботі з категоріями
   /categories:
     get:
@@ -57,10 +67,12 @@ paths:
   /stories:
     get:
       $ref: ../swagger/paths/stories/get.yaml
+    post:
+      $ref: ../swagger/paths/stories/post.yaml
     # ендпоінти по роботі з історіями за ID
   /stories/{id}:
-    # post:
-    #   $ref:
+    get:
+      $ref: '../swagger/paths/stories/{id}/get.yaml'
     patch:
       $ref: ../swagger/paths/stories/{id}/patch.yaml
 components:

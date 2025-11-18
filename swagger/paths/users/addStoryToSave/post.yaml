@@ -1,0 +1,61 @@
+tags:
+  - Users
+summary: Remove story from favoriteArticles of current user.
+operationId: addStoryToDownloads
+description: |
+  ## Overview
+  Add story to favoriteArticles of current user. Only for authorized user.
+
+  ## Authentication
+  This endpoint is private. 
+
+  ## Response Data
+  Returns information about traveller and updated information about story.
+security:
+  - bearerAuth: []
+parameters:
+  - in: query
+    name: storyId
+    required: true
+    schema:
+      type: string
+      example: '68498236a100312bea079039'
+    description: Story ID which will be remove.
+responses:
+  '200':
+    description: Story successfully added to downloads!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Story successfully added to downloads!
+            data:
+              type: object
+              required:
+                - user
+                - story
+              properties:
+                user:
+                  type: object
+                  $ref: '../../../components/schemas/user.yaml'
+                story:
+                  type: object
+                  $ref: '../../../components/schemas/storyExt.yaml'
+  '400':
+    $ref: ../../../components/responses/400.yaml
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'
+  '500':
+    $ref: '../../../components/responses/500.yaml'

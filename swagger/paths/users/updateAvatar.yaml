@@ -7,7 +7,7 @@ description: >
   The avatar must be an image file (JPG, PNG, or GIF) with a maximum size of 500 kB.  
   Authentication is performed using an access token stored in cookies.
 security:
-  - cookieAuth: []
+  - bearerAuth: []
 requestBody:
   required: true
   content:
