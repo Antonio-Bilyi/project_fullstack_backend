@@ -9,10 +9,13 @@ import { authenticate } from '../middlewares/auth.js';
 import { createStorySchema } from '../validation/story.js';
 import { upload } from '../middlewares/upload.js';
 import { validateStory } from '../middlewares/validateStory.js';
+import getStoryByIdCntrl from '../controllers/stories/getStoryByIdCntrl.js';
 
 const router = Router();
 
 router.get('/', ctrlWrapper(getAllStoriesCntrl));
+
+router.get('/:storyId', isValidStoryId, ctrlWrapper(getStoryByIdCntrl));
 
 router.post(
   '/',

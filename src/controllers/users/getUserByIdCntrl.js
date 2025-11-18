@@ -10,7 +10,7 @@ export default async function getUserByIdCntrl(req, res, next) {
   const user = await getUserById(userId);
 
   if (!user) {
-    next(createHttpError(404, 'User nor found'));
+    next(createHttpError(404, 'User not found'));
     return;
   }
 
