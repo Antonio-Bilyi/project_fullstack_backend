@@ -1,20 +1,27 @@
 tags:
-  - Contacts
-summary: Get contact by id
-operationId: getContactById
-description: 'Get contact by id'
-security:
-  - bearerAuth: []
+  - Stories
+summary: Get story by id
+operationId: getStoryById
+description: |
+  ## Overview
+  Retrieves the information of the story by storyId.
+
+  ## Authentication
+  This is public point.
+
+  ## Response Data
+  Returns story information with adding data of category and story owner.
+security: []
 parameters:
   - in: path
     name: id
     required: true
     schema:
       type: string
-      example: '68fad270e7f1469dd713faef'
+      example: '68498236a100312bea07901c'
 responses:
   '200':
-    description: 'Get contact by id'
+    description: 'Story successfully found.'
     content:
       application/json:
         schema:
@@ -29,12 +36,10 @@ responses:
               example: 200
             message:
               type: string
-              example: 'Successfully found contact with ID 68fad270e7f1469dd713faef!'
+              example: 'Story successfully found.'
             data:
               type: object
-              $ref: '../../../components/schemas/contact.yaml'
-  '401':
-    $ref: '../../../components/responses/401.yaml'
+              $ref: '../../../components/schemas/storyExt.yaml'
   '404':
     $ref: '../../../components/responses/404.yaml'
   '500':

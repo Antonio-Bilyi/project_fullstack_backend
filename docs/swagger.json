@@ -14,13 +14,13 @@
       "url": "https://project-fullstack-backend.onrender.com/api"
     },
     {
-      "url": "http://localhost:8080/api"
+      "url": "http://localhost:8080"
     }
   ],
   "tags": [
     {
       "name": "Auth",
-      "description": "Auth operations."
+      "description": "Authorithation operations."
     },
     {
       "name": "Users",
@@ -294,7 +294,11 @@
         "summary": "Logout user",
         "operationId": "logoutUser",
         "description": "Logout user by clearing session",
-        "security": [],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "Successfully logged out. All authentication cookies have been cleared.",
@@ -325,7 +329,11 @@
         "summary": "Refresh session",
         "operationId": "refreshUserSession",
         "description": "Refresh the user session",
-        "security": [],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully refreshed session",
@@ -368,6 +376,7 @@
         "summary": "Get list of all travelers",
         "operationId": "getAllUsers",
         "description": "## Overview\nRetrieves a paginated list of all registered travelers (users) in the application. This endpoint provides public access to user profiles for discovering and connecting with other travelers.\n\n## Pagination\nThe endpoint supports pagination to efficiently handle large datasets. Use the `page` and `perPage` query parameters to control the number of results returned.\n\n## Response Data\nReturns a paginated collection of user profiles including display names, avatars, and basic information. Sensitive data like passwords are automatically excluded from the response.\n",
+        "security": [],
         "parameters": [
           {
             "in": "query",
@@ -890,7 +899,7 @@
         "description": "Updates the avatar of the authenticated user.   The avatar must be an image file (JPG, PNG, or GIF) with a maximum size of 500 kB.   Authentication is performed using an access token stored in cookies.\n",
         "security": [
           {
-            "cookieAuth": []
+            "bearerAuth": []
           }
         ],
         "requestBody": {
@@ -1118,6 +1127,443 @@
         }
       }
     },
+    "/users/addStoryToSave": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Remove story from favoriteArticles of current user.",
+        "operationId": "addStoryToDownloads",
+        "description": "## Overview\nAdd story to favoriteArticles of current user. Only for authorized user.\n\n## Authentication\nThis endpoint is private. \n\n## Response Data\nReturns information about traveller and updated information about story.\n",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "storyId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "68498236a100312bea079039"
+            },
+            "description": "Story ID which will be remove."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Story successfully added to downloads!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Story successfully added to downloads!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "user",
+                        "story"
+                      ],
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "$ref": "#/components/schemas/user"
+                        },
+                        "story": {
+                          "type": "object",
+                          "$ref": "#/components/schemas/storyExt"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/users/removeStoryFromSave": {
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Remove story from favoriteArticles of current user.",
+        "operationId": "removeStoryFromDownloads",
+        "description": "## Overview\nRemove story from favoriteArticles of current user. Only for authorized user.\n\n## Authentication\nThis endpoint is private. \n\n## Response Data\nReturns information about traveller and updated information about story.\n",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "storyId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "68498236a100312bea079039"
+            },
+            "description": "Story ID which will be remove."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Story successfully removed from downloads!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Story successfully removed from downloads!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "user",
+                        "story"
+                      ],
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "$ref": "#/components/schemas/user"
+                        },
+                        "story": {
+                          "type": "object",
+                          "$ref": "#/components/schemas/storyExt"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/users/Me/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get Information about user and his own or saved stories.",
+        "operationId": "getMyStories",
+        "description": "## Overview\nRetrieves the information about the traveller and his stories. It can be own public stoies or saved stories of other users.\n\n## Authentication\nThis endpoint is private. You can get only information about you.\n\n## Response Data\nReturns information about traveller and his stories with pagination data. List of stories can be empty if traveller hasn't write stories yet or hasn't saved stories.\n",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6881563901add19ee16fd010"
+            }
+          },
+          {
+            "in": "query",
+            "name": "storiesType",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "own",
+                "saved"
+              ],
+              "default": "own"
+            },
+            "description": "Type of stories you want get."
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Number of stories per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful result of request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found user with stories!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "user",
+                        "stories"
+                      ],
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "$ref": "#/components/schemas/traveller"
+                        },
+                        "stories": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/storyExt"
+                          }
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1,
+                          "description": "Current page with stories"
+                        },
+                        "perPage": {
+                          "type": "integer",
+                          "example": 4,
+                          "description": "Count of stories per one page."
+                        },
+                        "totalItems": {
+                          "type": "integer",
+                          "example": 8,
+                          "description": "Total count of stories."
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 2,
+                          "description": "Total pages with stories."
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": true,
+                          "description": "Availability of subsequent pages of stories. Can be 'true' or 'false'."
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false,
+                          "description": "Availability of previos pages of stories. Can be 'true' or 'false'."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get Information about traveller and his public stories.",
+        "operationId": "getAllStories",
+        "description": "## Overview\nRetrieves the information of the traveller and his stories.\n\n## Authentication\nThis endpoint is public.\n\n## Response Data\nReturns information about traveller and his stories with pagination data. List of stories can be empty if traveller hasn't write stories yet.\n",
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6881563901add19ee16fd010"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Number of stories per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful result of request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "This user hasn't write stories yet."
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "user",
+                        "stories"
+                      ],
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "$ref": "#/components/schemas/traveller"
+                        },
+                        "story": {
+                          "type": "object",
+                          "$ref": "#/components/schemas/storyExt"
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1,
+                          "description": "Current page with stories"
+                        },
+                        "perPage": {
+                          "type": "integer",
+                          "example": 4,
+                          "description": "Count of stories per one page."
+                        },
+                        "totalItems": {
+                          "type": "integer",
+                          "example": 8,
+                          "description": "Total count of stories."
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 2,
+                          "description": "Total pages with stories."
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": true,
+                          "description": "Availability of subsequent pages of stories. Can be 'true' or 'false'."
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false,
+                          "description": "Availability of previos pages of stories. Can be 'true' or 'false'."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/categories": {
       "get": {
         "tags": [
@@ -1180,8 +1626,9 @@
           "Stories"
         ],
         "summary": "Get list of stories",
-        "operationId": "getStories",
+        "operationId": "getAllStories",
         "description": "Get list of stories. Public endpoint. Supports pagination and filtering by category.",
+        "security": [],
         "parameters": [
           {
             "in": "query",
@@ -1239,27 +1686,37 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/story"
+                        "$ref": "#/components/schemas/storyExt"
                       }
                     },
                     "totalItems": {
-                      "type": "integer"
+                      "type": "integer",
+                      "example": 5
                     },
                     "totalPages": {
-                      "type": "integer"
+                      "type": "integer",
+                      "example": 1
                     },
                     "currentPage": {
-                      "type": "integer"
+                      "type": "integer",
+                      "example": 1
                     },
                     "hasNextPage": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "example": false
                     },
                     "hasPrevPage": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "example": false
                     }
                   }
                 }
@@ -1279,9 +1736,154 @@
             "$ref": "#/components/responses/500"
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Stories"
+        ],
+        "summary": "Create story",
+        "operationId": "createStory",
+        "description": "Create new story",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Form data for creating a new story",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "img": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Image file"
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "My first story"
+                  },
+                  "article": {
+                    "type": "string",
+                    "example": "This is the content of my story"
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "653f1a2e3c9b1f0012a4cdef"
+                  }
+                },
+                "required": [
+                  "img",
+                  "title",
+                  "article",
+                  "category"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Story created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Story created successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/story"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
       }
     },
     "/stories/{id}": {
+      "get": {
+        "tags": [
+          "Stories"
+        ],
+        "summary": "Get story by id",
+        "operationId": "getStoryById",
+        "description": "## Overview\nRetrieves the information of the story by storyId.\n\n## Authentication\nThis is public point.\n\n## Response Data\nReturns story information with adding data of category and story owner.\n",
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "68498236a100312bea07901c"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Story successfully found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Story successfully found."
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/storyExt"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
       "patch": {
         "tags": [
           "Stories"
@@ -1502,6 +2104,31 @@
           }
         }
       },
+      "403": {
+        "description": "Access forbidden. You don't get this information.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 403
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Access forbidden"
+                }
+              }
+            }
+          }
+        }
+      },
       "404": {
         "description": "Not found error",
         "content": {
@@ -1639,6 +2266,67 @@
       }
     },
     "schemas": {
+      "user": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "avatarUrl"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User ID",
+            "example": "68fad270e7f1469dd713faef"
+          },
+          "email": {
+            "type": "string",
+            "description": "User email",
+            "example": "68fad270e7f1469dd713faef"
+          },
+          "name": {
+            "type": "string",
+            "description": "Owner Name",
+            "example": "Назар Романенко"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "Avatar URL",
+            "example": "https://ftp.goit.study/img/harmoniq/users/6881563901add19ee16fd010.webp"
+          },
+          "articlesAmount": {
+            "type": "integer",
+            "description": "Count of user own stories",
+            "example": 2
+          },
+          "description": {
+            "type": "string",
+            "description": "About user.",
+            "example": "Я Назар. Світ на смак – мій девіз!"
+          },
+          "favouriteArticles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "About user.",
+            "example": [
+              "68498236a100312bea079011",
+              "68498236a100312bea07901f"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Document creation date"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update date"
+          }
+        }
+      },
       "category": {
         "type": "object",
         "required": [
@@ -1655,6 +2343,114 @@
             "type": "string",
             "description": "Category name",
             "example": "Adventure"
+          }
+        }
+      },
+      "owner": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "avatarUrl"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Owner ID - User ID who create this story",
+            "example": "68fad270e7f1469dd713faef"
+          },
+          "name": {
+            "type": "string",
+            "description": "Owner Name",
+            "example": "Назар Романенко"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "Avatar URL",
+            "example": "https://ftp.goit.study/img/harmoniq/users/6881563901add19ee16fd010.webp"
+          }
+        }
+      },
+      "storyExt": {
+        "type": "object",
+        "required": [
+          "_id",
+          "title",
+          "img",
+          "category",
+          "ownerId",
+          "date"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Story ID"
+          },
+          "title": {
+            "type": "string",
+            "description": "Story title"
+          },
+          "img": {
+            "type": "string",
+            "description": "Image URL"
+          },
+          "article": {
+            "type": "string",
+            "description": "Story text/content"
+          },
+          "category": {
+            "$ref": "#/components/schemas/category"
+          },
+          "ownerId": {
+            "$ref": "#/components/schemas/owner"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Publication date"
+          },
+          "favoriteCount": {
+            "type": "integer",
+            "description": "Number of times added to favorites"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Document creation date"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update date"
+          }
+        }
+      },
+      "traveller": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "avatarUrl"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Traveller ID - User ID who create this story",
+            "example": "68fad270e7f1469dd713faef"
+          },
+          "name": {
+            "type": "string",
+            "description": "Traveller Name",
+            "example": "Назар Романенко"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "Avatar URL",
+            "example": "https://ftp.goit.study/img/harmoniq/users/6881563901add19ee16fd010.webp"
+          },
+          "description": {
+            "type": "string",
+            "description": "Information about traveller"
           }
         }
       },
@@ -1685,21 +2481,8 @@
             "description": "Story text/content"
           },
           "category": {
-            "type": "object",
-            "required": [
-              "_id",
-              "name"
-            ],
-            "properties": {
-              "_id": {
-                "type": "string",
-                "description": "Category ID"
-              },
-              "name": {
-                "type": "string",
-                "description": "Category name"
-              }
-            }
+            "type": "string",
+            "description": "Category ID"
           },
           "ownerId": {
             "type": "string",

@@ -1,9 +1,9 @@
 tags:
   - Stories
 summary: Get list of stories
-operationId: getStories
-description: 'Get list of stories. Public endpoint. Supports pagination and filtering by category.'
-
+operationId: getAllStories
+description: Get list of stories. Public endpoint. Supports pagination and filtering by category.
+security: []
 parameters:
   - in: query
     name: page
@@ -32,12 +32,9 @@ parameters:
     name: sortOrder
     schema:
       type: string
-      enum:
-        - asc
-        - desc
+      enum: ['asc', 'desc']
       default: desc
     description: Sort order
-
 responses:
   '200':
     description: List of stories with pagination
@@ -45,21 +42,30 @@ responses:
       application/json:
         schema:
           type: object
+          required:
+            - status
+            - message
+            - data
           properties:
             data:
               type: array
               items:
-                $ref: '../../components/schemas/story.yaml'
+                $ref: '../../components/schemas/storyExt.yaml'
             totalItems:
               type: integer
+              example: 5
             totalPages:
               type: integer
+              example: 1
             currentPage:
               type: integer
+              example: 1
             hasNextPage:
               type: boolean
+              example: false
             hasPrevPage:
               type: boolean
+              example: false
   '400':
     $ref: '../../components/responses/400.yaml'
   '401':

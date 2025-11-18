@@ -11,7 +11,7 @@ description: |
 
   ## Response Data
   Returns a paginated collection of user profiles including display names, avatars, and basic information. Sensitive data like passwords are automatically excluded from the response.
-
+security: []
 parameters:
   - in: query
     name: page

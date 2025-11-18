@@ -2,6 +2,7 @@ type: object
 required:
   - _id
   - title
+  - img
   - category
   - ownerId
   - date
@@ -14,16 +15,14 @@ properties:
     description: Story title
   img:
     type: string
-    description: Image URL (optional)
+    description: Image URL
   article:
     type: string
     description: Story text/content
   category:
-    type: string
-    description: Category ID
+    $ref: '../schemas/category.yaml'
   ownerId:
-    type: string
-    description: Author (user) ID
+    $ref: '../schemas/owner.yaml'
   date:
     type: string
     format: date-time

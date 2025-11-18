@@ -1,0 +1,21 @@
+type: object
+required:
+  - _id
+  - name
+  - avatarUrl
+properties:
+  _id:
+    type: string
+    description: Traveller ID - User ID who create this story
+    example: '68fad270e7f1469dd713faef'
+  name:
+    type: string
+    description: Traveller Name
+    example: 'Назар Романенко'
+  avatarUrl:
+    type: string
+    description: Avatar URL
+    example: 'https://ftp.goit.study/img/harmoniq/users/6881563901add19ee16fd010.webp'
+  description:
+    type: string
+    description: Information about traveller

@@ -1,17 +1,18 @@
 tags:
   - Users
-summary: Get Information about traveller and his public stories.
-operationId: getAllStories
+summary: Get Information about user and his own or saved stories.
+operationId: getMyStories
 description: |
   ## Overview
-  Retrieves the information of the traveller and his stories.
+  Retrieves the information about the traveller and his stories. It can be own public stoies or saved stories of other users.
 
   ## Authentication
-  This endpoint is public.
+  This endpoint is private. You can get only information about you.
 
   ## Response Data
-  Returns information about traveller and his stories with pagination data. List of stories can be empty if traveller hasn't write stories yet.
-security: []
+  Returns information about traveller and his stories with pagination data. List of stories can be empty if traveller hasn't write stories yet or hasn't saved stories.
+security:
+  - bearerAuth: []
 parameters:
   - in: path
     name: id
@@ -19,6 +20,13 @@ parameters:
     schema:
       type: string
       example: '6881563901add19ee16fd010'
+  - in: query
+    name: storiesType
+    schema:
+      type: string
+      enum: ['own', 'saved']
+      default: 'own'
+    description: Type of stories you want get.
   - in: query
     name: page
     schema:
@@ -48,7 +56,7 @@ responses:
               example: 200
             message:
               type: string
-              example: This user hasn't write stories yet.
+              example: Successfully found user with stories!
             data:
               type: object
               required:
@@ -57,10 +65,11 @@ responses:
               properties:
                 user:
                   type: object
-                  $ref: ../../../components/schemas/traveller.yaml
-                story:
-                  type: object
-                  $ref: '../../../components/schemas/storyExt.yaml'
+                  $ref: ../../../../components/schemas/traveller.yaml
+                stories:
+                  type: array
+                  items:
+                    $ref: ../../../../components/schemas/storyExt.yaml
                 page:
                   type: integer
                   example: 1
@@ -86,8 +95,12 @@ responses:
                   example: false
                   description: Availability of previos pages of stories. Can be 'true' or 'false'.
   '400':
-    $ref: '../../../components/responses/400.yaml'
+    $ref: '../../../../components/responses/400.yaml'
+  '401':
+    $ref: '../../../../components/responses/401.yaml'
+  '403':
+    $ref: '../../../../components/responses/403.yaml'
   '404':
-    $ref: '../../../components/responses/404.yaml'
+    $ref: '../../../../components/responses/404.yaml'
   '500':
-    $ref: '../../../components/responses/500.yaml'
+    $ref: '../../../../components/responses/500.yaml'
