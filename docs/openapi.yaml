@@ -17,7 +17,7 @@ tags:
     description: Operations with categories
 servers:
   - url: https://project-fullstack-backend.onrender.com/api
-  - url: http://localhost:8080
+  - url: http://localhost:8080/api
 paths:
   # ендпоінти авторизації
   /auth/register:

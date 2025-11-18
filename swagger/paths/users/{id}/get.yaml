@@ -1,7 +1,7 @@
 tags:
   - Users
 summary: Get Information about traveller and his public stories.
-operationId: getAllStories
+operationId: getAllStoriesByUserId
 description: |
   ## Overview
   Retrieves the information of the traveller and his stories.
@@ -53,7 +53,7 @@ responses:
               type: object
               required:
                 - user
-                - stories
+                - story
               properties:
                 user:
                   type: object

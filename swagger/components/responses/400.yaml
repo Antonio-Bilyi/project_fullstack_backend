@@ -35,7 +35,7 @@ content:
                     type: array
                     items:
                       type: string
-                      example: ['name']
+                      example: "['name']"
                   type:
                     type: string
                     example: 'string.min'

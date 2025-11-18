@@ -6,7 +6,6 @@ content:
       required:
         - status
         - message
-        - data
       properties:
         status:
           type: integer

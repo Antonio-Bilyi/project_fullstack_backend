@@ -14,7 +14,7 @@
       "url": "https://project-fullstack-backend.onrender.com/api"
     },
     {
-      "url": "http://localhost:8080"
+      "url": "http://localhost:8080/api"
     }
   ],
   "tags": [
@@ -463,7 +463,6 @@
                               "avatar": {
                                 "type": "string",
                                 "format": "uri",
-                                "nullable": true,
                                 "description": "Absolute URL to the user's avatar image. Null if no avatar uploaded.",
                                 "example": "https://res.cloudinary.com/travellers/image/upload/v1234567890/avatars/user456.jpg"
                               },
@@ -1447,7 +1446,7 @@
           "Users"
         ],
         "summary": "Get Information about traveller and his public stories.",
-        "operationId": "getAllStories",
+        "operationId": "getAllStoriesByUserId",
         "description": "## Overview\nRetrieves the information of the traveller and his stories.\n\n## Authentication\nThis endpoint is public.\n\n## Response Data\nReturns information about traveller and his stories with pagination data. List of stories can be empty if traveller hasn't write stories yet.\n",
         "security": [],
         "parameters": [
@@ -1504,7 +1503,7 @@
                       "type": "object",
                       "required": [
                         "user",
-                        "stories"
+                        "story"
                       ],
                       "properties": {
                         "user": {
@@ -1692,6 +1691,14 @@
                     "data"
                   ],
                   "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Stories fetched successfully"
+                    },
                     "data": {
                       "type": "array",
                       "items": {
@@ -2045,9 +2052,7 @@
                             "type": "array",
                             "items": {
                               "type": "string",
-                              "example": [
-                                "name"
-                              ]
+                              "example": "['name']"
                             }
                           },
                           "type": {
@@ -2112,8 +2117,7 @@
               "type": "object",
               "required": [
                 "status",
-                "message",
-                "data"
+                "message"
               ],
               "properties": {
                 "status": {

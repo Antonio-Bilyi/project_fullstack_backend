@@ -96,7 +96,7 @@ responses:
                       avatar:
                         type: string
                         format: uri
-                        nullable: true
+                        # nullable: true
                         description: Absolute URL to the user's avatar image. Null if no avatar uploaded.
                         example: 'https://res.cloudinary.com/travellers/image/upload/v1234567890/avatars/user456.jpg'
                       createdAt:
