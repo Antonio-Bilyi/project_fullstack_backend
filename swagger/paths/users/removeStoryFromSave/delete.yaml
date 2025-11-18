@@ -13,14 +13,27 @@ description: |
   Returns information about traveller and updated information about story.
 security:
   - bearerAuth: []
-parameters:
-  - in: query
-    name: storyId
-    required: true
-    schema:
-      type: string
-      example: '68498236a100312bea079039'
-    description: Story ID which will be remove.
+# parameters:
+#   - in: query
+#     name: storyId
+#     required: true
+#     schema:
+#       type: string
+#       example: '68498236a100312bea079039'
+#     description: Story ID which will be remove.
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - storyId
+        properties:
+          storyId:
+            type: string
+            example: '68498236a100312bea07901c'
+            description: Story ID
 responses:
   '200':
     description: Story successfully removed from downloads!
