@@ -12,7 +12,7 @@ description: |
   ## Response Data
   Returns information about traveller and updated information about story.
 security:
-  - bearerAuth: []
+  - cookieAuth: []
 # parameters:
 #   - in: query
 #     name: storyId

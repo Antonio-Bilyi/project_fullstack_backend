@@ -4,7 +4,7 @@ summary: Refresh session
 operationId: refreshUserSession
 description: Refresh the user session
 security:
-  - bearerAuth: []
+  - cookieAuth: []
 responses:
   '200':
     description: Successfully refreshed session
