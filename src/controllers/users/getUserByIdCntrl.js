@@ -18,12 +18,19 @@ export default async function getUserByIdCntrl(req, res, next) {
 
   const response = await getAllStories({ page, perPage, filter });
 
+  const traveller = {
+    _id: user._id,
+    name: user.name,
+    avatarUrl: user.avatarUrl,
+    description: user.description,
+  };
+
   if (response?.totalItems === 0) {
     res.json({
       status: 200,
       message: `This user hasn't write stories yet.`,
       data: {
-        user,
+        user: traveller,
         stories: {},
         page: 1,
         perPage: 1,
@@ -36,7 +43,7 @@ export default async function getUserByIdCntrl(req, res, next) {
   }
 
   const data = {
-    user: user,
+    user: traveller,
     stories: response.data,
     page: response.page,
     perPage: response.perPage,
