@@ -1519,15 +1519,16 @@
                       "type": "object",
                       "required": [
                         "user",
-                        "story"
+                        "storis"
                       ],
                       "properties": {
                         "user": {
                           "type": "object",
                           "$ref": "#/components/schemas/traveller"
                         },
-                        "story": {
-                          "type": "object",
+                        "stories": {
+                          "type": "array",
+                          "items": null,
                           "$ref": "#/components/schemas/storyExt"
                         },
                         "page": {
