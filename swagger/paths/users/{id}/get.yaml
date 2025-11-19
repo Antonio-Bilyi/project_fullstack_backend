@@ -53,13 +53,14 @@ responses:
               type: object
               required:
                 - user
-                - story
+                - storis
               properties:
                 user:
                   type: object
                   $ref: ../../../components/schemas/traveller.yaml
-                story:
-                  type: object
+                stories:
+                  type: array
+                  items:
                   $ref: '../../../components/schemas/storyExt.yaml'
                 page:
                   type: integer

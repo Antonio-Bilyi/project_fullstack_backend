@@ -31,7 +31,7 @@ export default async function getUserByIdCntrl(req, res, next) {
       message: `This user hasn't write stories yet.`,
       data: {
         user: traveller,
-        stories: {},
+        stories: [],
         page: 1,
         perPage: 1,
         totalItems: 0,
