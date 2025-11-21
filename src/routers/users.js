@@ -25,7 +25,7 @@ usersRouter.get('/current', authenticate, ctrlWrapper(getCurrentUserCntrl));
 
 // приватний маршрут для отримання профайлу користувача та історій збережених або власних
 usersRouter.get(
-  '/Me/:userId',
+  '/me/:userId',
   authenticate,
   isValidUserId,
   ctrlWrapper(getMeByIdCntrl),
