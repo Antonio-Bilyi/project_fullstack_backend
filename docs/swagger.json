@@ -1308,7 +1308,7 @@
         }
       }
     },
-    "/users/Me/{id}": {
+    "/users/me/{id}": {
       "get": {
         "tags": [
           "Users"

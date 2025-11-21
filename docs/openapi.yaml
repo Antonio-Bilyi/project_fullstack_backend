@@ -53,7 +53,7 @@ paths:
       $ref: '../swagger/paths/users/removeStoryFromSave/delete.yaml'
 
   # ендпоінти по роботі з користувачами за ID
-  /users/Me/{id}:
+  /users/me/{id}:
     get:
       $ref: '../swagger/paths/users/Me/{id}/get.yaml'
   /users/{id}:
